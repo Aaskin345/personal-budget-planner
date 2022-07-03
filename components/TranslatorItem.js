@@ -10,8 +10,7 @@ export default function TranslatorItem({ translator }) {
           <img
             src={translator.image}
             alt={translator.name}
-            // className="rounded-2xl shadow-2xl hover:shadow-black"
-            className="border-b-2 border-sky-600 rounded-t-2xl hover:scale-105 shadow-2xl hover:shadow-black"
+            className="scaling border-sky-600 rounded-t-2xl"
           />
         </a>
       </Link>
@@ -23,21 +22,15 @@ export default function TranslatorItem({ translator }) {
             </h2>
           </a>
         </Link>
-        <p className="border-b border-sky-600 mb-2"> Ksh {translator.price}</p>
+        <p className="text-sky-600 mb-2"> Ksh {translator.price}</p>
         <p className="border-b border-sky-600 mb-2 text-xs">
           {translator.category}
         </p>
-        {/* <Link>
-          <a>
-            <imgage src="/public/icons/favorites.jpg" />
-          </a>
-        </Link> */}
 
-        {/* <button className="primary-button" type="button">
-          Add to favorites
-        </button> */}
-
-        <button className="primary-button" type="button">
+        <button
+          className="hover:bg-sky-600 active:bg-sky-700 focus:fill focus:fill-red-300"
+          type="button"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-4 w-4"

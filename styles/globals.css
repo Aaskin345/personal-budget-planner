@@ -18,3 +18,11 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.card {
+  @apply mb-5 block   rounded-2xl border border-slate-300  shadow-2xl;
+}
+
+.card:hover .scaling {
+  @apply scale-105 shadow-2xl shadow-black;
+}
