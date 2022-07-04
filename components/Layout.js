@@ -13,7 +13,7 @@ export default function Layout({ title, children }) {
 
       <div className="flex min-h-screen flex-col justify-between ">
         <header>
-          <nav className="flex h-14 border-b border-sky-600 items-center px-4 justify-between shadow-2xl hover:shadow-black">
+          <nav className="flex h-14 border border-gray-300 shadow-2xl shadow-slate-600 items-center px-4 justify-between shadow-2xl">
             <Link href="/">
               <a className="text-lg font-bold">Sign Translators</a>
             </Link>
