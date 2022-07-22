@@ -1,9 +1,12 @@
 import { createContext, useReducer } from 'react';
+import Cookies from 'js-cookie';
 
 export const Store = createContext();
 
 const initialState = {
-  favorites: { favoritesItems: [] },
+  favorites: Cookies.get('favorites')
+    ? JSON.parse(Cookies.get('favorites'))
+    : { favoritesItems: [] },
 };
 
 function reducer(state, action) {
@@ -18,11 +21,19 @@ function reducer(state, action) {
             item.name === existItem.name ? newItem : item
           )
         : [...state.favorites.favoritesItems, newItem];
+      Cookies.set(
+        'favorites',
+        JSON.stringify({ ...state.favorites, favoritesItems })
+      );
       return { ...state, favorites: { ...state.favorites, favoritesItems } };
     }
     case 'FAVORITES_REMOVE_ITEM': {
       const favoritesItems = state.favorites.favoritesItems.filter(
         (item) => item.slug !== action.payload.slug
+      );
+      Cookies.set(
+        'favorites',
+        JSON.stringify({ ...state.favorites, favoritesItems })
       );
       return { ...state, favorites: { ...state.favorites, favoritesItems } };
     }

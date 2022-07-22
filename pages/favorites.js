@@ -5,8 +5,9 @@ import { XCircleIcon } from '@heroicons/react/outline';
 import Layout from '../components/Layout';
 import { Store } from '../utils/Store';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 
-export default function FavoritesScreen() {
+function FavoritesScreen() {
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
   const {
@@ -90,3 +91,5 @@ export default function FavoritesScreen() {
     </Layout>
   );
 }
+
+export default dynamic(() => Promise.resolve(FavoritesScreen), { ssr: false });

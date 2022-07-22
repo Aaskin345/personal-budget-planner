@@ -1,12 +1,18 @@
 import Head from 'next/head';
 import Link from 'next/link';
 // import React from 'react';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Store } from '../utils/Store';
 
 export default function Layout({ title, children }) {
   const { state } = useContext(Store);
   const { favorites } = state;
+  const [favoritesItemsCount, setFavoritesItemsCount] = useState(0);
+  useEffect(() => {
+    setFavoritesItemsCount(
+      favorites.favoritesItems.reduce((a, c) => a + c.quantity, 0)
+    );
+  }, [favorites.favoritesItems]);
   return (
     <>
       <Head>
@@ -25,12 +31,9 @@ export default function Layout({ title, children }) {
               <Link href="/favorites">
                 <a className="p-2">
                   Favorites
-                  {favorites.favoritesItems.length > 0 && (
+                  {favoritesItemsCount > 0 && (
                     <span className="ml-1 rounded-full bg-sky-600 px-2 py-1 text-xs font-bold text-white">
-                      {favorites.favoritesItems.reduce(
-                        (a, c) => a + c.quantity,
-                        0
-                      )}
+                      {favoritesItemsCount}
                     </span>
                   )}
                 </a>
