@@ -20,6 +20,12 @@ function reducer(state, action) {
         : [...state.favorites.favoritesItems, newItem];
       return { ...state, favorites: { ...state.favorites, favoritesItems } };
     }
+    case 'FAVORITES_REMOVE_ITEM': {
+      const favoritesItems = state.favorites.favoritesItems.filter(
+        (item) => item.slug !== action.payload.slug
+      );
+      return { ...state, favorites: { ...state.favorites, favoritesItems } };
+    }
     default:
       return state;
   }

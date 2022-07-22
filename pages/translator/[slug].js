@@ -1,17 +1,45 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React from 'react';
+// import React from 'react';
 import Layout from '../../components/Layout';
 import data from '../../utils/data';
+import React, { useContext } from 'react';
+// import { Store } from '../utils/Store';
+import { Store } from '../../utils/Store';
 
 export default function TranslatorScreen() {
+  const { state, dispatch } = useContext(Store);
+
+  const router = useRouter();
+
   const { query } = useRouter();
   const { slug } = query;
   const translator = data.translators.find((x) => x.slug === slug);
   if (!translator) {
     return <div>Translator Not Found</div>;
   }
+
+  const addToFavoritesHandler = () => {
+    const existItem = state.favorites.favoritesItems.find(
+      (x) => x.slug === translator.slug
+    );
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+
+    if (1 < quantity) {
+      alert(
+        'Sorry. The selected translator is on another session.Try again later.'
+      );
+      return;
+    }
+
+    dispatch({
+      type: 'FAVORITES_ADD_ITEM',
+      payload: { ...translator, quantity: 1 },
+    });
+    router.push('/favorites');
+  };
+
   return (
     <Layout title={translator.name}>
       <div className="py-2">
@@ -111,7 +139,10 @@ export default function TranslatorScreen() {
               <div>Ksh {translator.price}/Hr</div>
             </div>
             <div className="mb-2 flex justify-between"></div>
-            <button className="rounded bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 w-full">
+            <button
+              className="rounded bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 w-full"
+              onClick={addToFavoritesHandler}
+            >
               Hire
             </button>
           </div>
