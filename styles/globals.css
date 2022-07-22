@@ -25,3 +25,9 @@ a {
 .card:hover .scaling {
   @apply scale-105 shadow-2xl shadow-black;
 }
+
+input,
+select,
+textarea {
+  @apply rounded border p-2  outline-none ring-sky-600  focus:ring;
+}

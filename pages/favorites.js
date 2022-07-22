@@ -22,7 +22,11 @@ function FavoritesScreen() {
       {favoritesItems.length === 0 ? (
         <div>
           Favorites list is empty.{' '}
-          <Link href="/">Browse More Sign translators</Link>
+          <Link href="/">
+            <span className="text-sky-600 hover:text-sky-800">
+              Browse More Sign translators
+            </span>
+          </Link>
         </div>
       ) : (
         <div className="grid md:grid-cols-4 md:gap-5">
@@ -78,7 +82,7 @@ function FavoritesScreen() {
               </li>
               <li>
                 <button
-                  onClick={() => router.push('/shipping')}
+                  onClick={() => router.push('login?redirect=/shipping')}
                   className="rounded bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 w-full"
                 >
                   Check Out
