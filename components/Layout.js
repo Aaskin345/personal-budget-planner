@@ -1,11 +1,19 @@
+import { signOut, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import Link from 'next/link';
 // import React from 'react';
 import React, { useContext, useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
+import { Menu } from '@headlessui/react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Store } from '../utils/Store';
+import DropdownLink from './DropdownLink';
 
 export default function Layout({ title, children }) {
-  const { state } = useContext(Store);
+  const { status, data: session } = useSession();
+
+  const { state, dispatch } = useContext(Store);
   const { favorites } = state;
   const [favoritesItemsCount, setFavoritesItemsCount] = useState(0);
   useEffect(() => {
@@ -13,6 +21,12 @@ export default function Layout({ title, children }) {
       favorites.favoritesItems.reduce((a, c) => a + c.quantity, 0)
     );
   }, [favorites.favoritesItems]);
+
+  const logoutClickHandler = () => {
+    Cookies.remove('favorites');
+    dispatch({ type: 'FAVORITES_RESET' });
+    signOut({ callbackUrl: '/login' });
+  };
   return (
     <>
       <Head>
@@ -20,6 +34,8 @@ export default function Layout({ title, children }) {
         <meta name="description" content="Sign Translation Website" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <ToastContainer position="bottom-center" limit={1} />
 
       <div className="flex min-h-screen flex-col justify-between ">
         <header>
@@ -38,9 +54,43 @@ export default function Layout({ title, children }) {
                   )}
                 </a>
               </Link>
-              <Link href="/login">
-                <a className="p-2">Login</a>
-              </Link>
+              {status === 'loading' ? (
+                'Loading'
+              ) : session?.user ? (
+                <Menu as="div" className="relative inline-block">
+                  <Menu.Button className="text-sky-600">
+                    {session.user.name}
+                  </Menu.Button>
+                  <Menu.Items className="rounded-2xl border border-slate-300 shadow-2xl shadow-slate-600 absolute right-0 w-56 origin-top-right bg-white  shadow-lg ">
+                    <Menu.Item>
+                      <DropdownLink className="dropdown-link" href="/profile">
+                        Profile
+                      </DropdownLink>
+                    </Menu.Item>
+                    <Menu.Item>
+                      <DropdownLink
+                        className="dropdown-link"
+                        href="/translation-history"
+                      >
+                        Translation History
+                      </DropdownLink>
+                    </Menu.Item>
+                    <Menu.Item>
+                      <a
+                        className="dropdown-link"
+                        href="#"
+                        onClick={logoutClickHandler}
+                      >
+                        Logout
+                      </a>
+                    </Menu.Item>
+                  </Menu.Items>
+                </Menu>
+              ) : (
+                <Link href="/login">
+                  <a className="p-2">Login</a>
+                </Link>
+              )}
             </div>
           </nav>
         </header>
