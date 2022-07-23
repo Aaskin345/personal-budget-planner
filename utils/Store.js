@@ -6,7 +6,7 @@ export const Store = createContext();
 const initialState = {
   favorites: Cookies.get('favorites')
     ? JSON.parse(Cookies.get('favorites'))
-    : { favoritesItems: [] },
+    : { favoritesItems: [], paymentMethod: '' },
 };
 
 function reducer(state, action) {
@@ -40,10 +40,18 @@ function reducer(state, action) {
     case 'FAVORITES_RESET':
       return {
         ...state,
-        cart: {
-          cartItems: [],
+        favorites: {
+          favoritesItems: [],
           // shippingAddress: { location: {} },
           paymentMethod: '',
+        },
+      };
+    case 'SAVE_PAYMENT_METHOD':
+      return {
+        ...state,
+        favorites: {
+          ...state.favorites,
+          paymentMethod: action.payload,
         },
       };
     default:

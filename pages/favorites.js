@@ -82,7 +82,7 @@ function FavoritesScreen() {
               </li>
               <li>
                 <button
-                  onClick={() => router.push('login?redirect=/shipping')}
+                  onClick={() => router.push('login?redirect=/payment')}
                   className="rounded bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 w-full"
                 >
                   Check Out
