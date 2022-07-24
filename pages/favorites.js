@@ -6,6 +6,7 @@ import Layout from '../components/Layout';
 import { Store } from '../utils/Store';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
+import { toast } from 'react-toastify';
 
 function FavoritesScreen() {
   const router = useRouter();
@@ -15,7 +16,9 @@ function FavoritesScreen() {
   } = state;
   const removeItemHandler = (item) => {
     dispatch({ type: 'FAVORITES_REMOVE_ITEM', payload: item });
+    return toast.success('Succesfully Removed from Favorites');
   };
+
   return (
     <Layout title="Favorites">
       <h1 className="mb-4 text-2xl font-bold text-sky-600">Favorites</h1>

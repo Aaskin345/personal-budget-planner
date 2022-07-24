@@ -1,36 +1,40 @@
+//import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 // import React from 'react';
 import Layout from '../../components/Layout';
-import data from '../../utils/data';
+//import data from '../../utils/data';
 import React, { useContext } from 'react';
+import { toast } from 'react-toastify';
 // import { Store } from '../utils/Store';
 import { Store } from '../../utils/Store';
+import Translator from '../../models/Translator';
+import db from '../../utils/db';
 
-export default function TranslatorScreen() {
+export default function TranslatorScreen(props) {
+  const { translator } = props;
   const { state, dispatch } = useContext(Store);
 
   const router = useRouter();
 
-  const { query } = useRouter();
-  const { slug } = query;
-  const translator = data.translators.find((x) => x.slug === slug);
   if (!translator) {
-    return <div>Translator Not Found</div>;
+    return (
+      <Layout title="Translator Not Found">Sign Translator Not Found</Layout>
+    );
   }
 
-  const addToFavoritesHandler = () => {
+  const addToFavoritesHandler = async () => {
     const existItem = state.favorites.favoritesItems.find(
       (x) => x.slug === translator.slug
     );
     const quantity = existItem ? existItem.quantity + 1 : 1;
+    //const { data } = await axios.get(`/api/translators/${translator._id}`);
 
     if (1 < quantity) {
-      alert(
-        'Sorry. The selected translator is on another session.Try again later.'
+      return toast.error(
+        'Sorry. Translator is on another session. Try Again later'
       );
-      return;
     }
 
     dispatch({
@@ -150,4 +154,18 @@ export default function TranslatorScreen() {
       </div>
     </Layout>
   );
+}
+
+export async function getServerSideProps(context) {
+  const { params } = context;
+  const { slug } = params;
+
+  await db.connect();
+  const translator = await Translator.findOne({ slug }).lean();
+  await db.disconnect();
+  return {
+    props: {
+      translator: translator ? db.convertDocToObj(translator) : null,
+    },
+  };
 }

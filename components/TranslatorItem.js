@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import React from 'react';
 
-export default function TranslatorItem({ translator }) {
+export default function TranslatorItem({ translator, addToFavoritesHandler }) {
   return (
     <div className="card">
       <Link href={`/translator/${translator.slug}`}>
@@ -30,7 +30,7 @@ export default function TranslatorItem({ translator }) {
         <button
           className="hover:bg-sky-600 active:bg-sky-700 focus:fill focus:fill-red-300"
           type="button"
-          //onClick={addToFavoritesHandler}
+          onClick={() => addToFavoritesHandler(translator)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
