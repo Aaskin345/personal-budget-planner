@@ -46,6 +46,12 @@ function reducer(state, action) {
           paymentMethod: '',
         },
       };
+    case 'FAVORITES_CLEAR_ITEMS':
+      return {
+        ...state,
+        favorites: { ...state.favorites, favoritesItems: [] },
+      };
+
     case 'SAVE_PAYMENT_METHOD':
       return {
         ...state,
