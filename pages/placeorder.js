@@ -65,7 +65,7 @@ export default function PlaceOrderScreen() {
   return (
     <Layout title="Place Order">
       <CheckoutWizard activeStep={2} />
-      <h1 className="mb-4 text-xl">Place Order</h1>
+      <h1 className="mb-4 text-xl">Place Hire Order</h1>
       {favoritesItems.length === 0 ? (
         <div>
           Favorites is empty. <Link href="/">Go To Sign Translators</Link>
@@ -140,7 +140,7 @@ export default function PlaceOrderScreen() {
           <div>
             <div className="card  p-5">
               <h2 className="mb-2 text-lg font-bold text-sky-600">
-                Order Summary
+                Hire Order Summary
               </h2>
               <ul>
                 <li>

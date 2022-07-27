@@ -14,6 +14,7 @@ function FavoritesScreen() {
   const {
     favorites: { favoritesItems },
   } = state;
+
   const removeItemHandler = (item) => {
     dispatch({ type: 'FAVORITES_REMOVE_ITEM', payload: item });
     return toast.success('Succesfully Removed from Favorites');
@@ -77,11 +78,7 @@ function FavoritesScreen() {
           <div className="card p-5">
             <ul>
               <li>
-                <div className="p-6 text-justify pb-3 text-xl">
-                  Subtotal ({favoritesItems.reduce((a, c) => a + c.quantity, 0)}
-                  ) : Ksh
-                  {favoritesItems.reduce((a, c) => a + c.quantity * c.price, 0)}
-                </div>
+                <div className="text-center pb-3 text-2xl">Proceed to</div>
               </li>
               <li>
                 <button

@@ -38,7 +38,7 @@ export default function Layout({ title, children }) {
       <ToastContainer position="bottom-center" limit={1} />
 
       <div className="flex min-h-screen flex-col justify-between ">
-        <header>
+        <header className="sticky top-0 z-50 bg-white">
           <nav className="flex h-14 border border-gray-300 shadow-2xl shadow-slate-600 items-center px-4 justify-between shadow-2xl">
             <Link href="/">
               <a className="text-lg font-bold">Sign Translators</a>
@@ -70,9 +70,9 @@ export default function Layout({ title, children }) {
                     <Menu.Item>
                       <DropdownLink
                         className="dropdown-link"
-                        href="/translation-history"
+                        href="/hire-order-history"
                       >
-                        Translation History
+                        Hire History
                       </DropdownLink>
                     </Menu.Item>
                     <Menu.Item>

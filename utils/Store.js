@@ -37,6 +37,7 @@ function reducer(state, action) {
       );
       return { ...state, favorites: { ...state.favorites, favoritesItems } };
     }
+
     case 'FAVORITES_RESET':
       return {
         ...state,
