@@ -75,7 +75,9 @@ function OrderHistoryScreen() {
 
                   <td className=" p-5 ">
                     <Link href={`/order/${order._id}`} passHref>
-                      <a>Details</a>
+                      <a className="text-gray-900 underline hover:text-sky-600">
+                        Details
+                      </a>
                     </Link>
                   </td>
                 </tr>
