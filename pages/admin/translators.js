@@ -1,6 +1,8 @@
 import axios from 'axios';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useEffect, useReducer } from 'react';
+import { toast } from 'react-toastify';
 import Layout from '../../components/Layout';
 import { getError } from '../../utils/error';
 
@@ -17,16 +19,59 @@ function reducer(state, action) {
       };
     case 'FETCH_FAIL':
       return { ...state, loading: false, error: action.payload };
+    case 'CREATE_REQUEST':
+      return { ...state, loadingCreate: true };
+    case 'CREATE_SUCCESS':
+      return { ...state, loadingCreate: false };
+    case 'CREATE_FAIL':
+      return { ...state, loadingCreate: false };
+    case 'DELETE_REQUEST':
+      return { ...state, loadingDelete: true };
+    case 'DELETE_SUCCESS':
+      return { ...state, loadingDelete: false, successDelete: true };
+    case 'DELETE_FAIL':
+      return { ...state, loadingDelete: false };
+    case 'DELETE_RESET':
+      return { ...state, loadingDelete: false, successDelete: false };
+
     default:
       state;
   }
 }
 export default function AdminTranslatorsScreen() {
-  const [{ loading, error, translators }, dispatch] = useReducer(reducer, {
+  const router = useRouter();
+
+  const [
+    {
+      loading,
+      error,
+      translators,
+      loadingCreate,
+      successDelete,
+      loadingDelete,
+    },
+    dispatch,
+  ] = useReducer(reducer, {
     loading: true,
     translators: [],
     error: '',
   });
+
+  const createHandler = async () => {
+    if (!window.confirm('Are you sure?')) {
+      return;
+    }
+    try {
+      dispatch({ type: 'CREATE_REQUEST' });
+      const { data } = await axios.post(`/api/admin/translators`);
+      dispatch({ type: 'CREATE_SUCCESS' });
+      toast.success('Sign translator created successfully');
+      router.push(`/admin/translator/${data.translator._id}`);
+    } catch (err) {
+      dispatch({ type: 'CREATE_FAIL' });
+      toast.error(getError(err));
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,8 +84,27 @@ export default function AdminTranslatorsScreen() {
       }
     };
 
-    fetchData();
-  }, []);
+    if (successDelete) {
+      dispatch({ type: 'DELETE_RESET' });
+    } else {
+      fetchData();
+    }
+  }, [successDelete]);
+
+  const deleteHandler = async (translatorId) => {
+    if (!window.confirm('Are you sure?')) {
+      return;
+    }
+    try {
+      dispatch({ type: 'DELETE_REQUEST' });
+      await axios.delete(`/api/admin/translators/${translatorId}`);
+      dispatch({ type: 'DELETE_SUCCESS' });
+      toast.success('Translator deleted successfully');
+    } catch (err) {
+      dispatch({ type: 'DELETE_FAIL' });
+      toast.error(getError(err));
+    }
+  };
   return (
     <Layout title="Admin Translators">
       <div className="grid md:grid-cols-4 md:gap-5">
@@ -63,7 +127,18 @@ export default function AdminTranslatorsScreen() {
           </ul>
         </div>
         <div className="overflow-x-auto md:col-span-3">
-          <h1 className="mb-4 text-3xl text-sky-600">Sign Translators</h1>
+          <div className="flex justify-between">
+            <h1 className="mb-4 text-3xl text-sky-600">Sign Translators</h1>
+            {loadingDelete && <div>Deleting item...</div>}
+            <button
+              disabled={loadingCreate}
+              onClick={createHandler}
+              className="rounded-lg bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 w-24"
+            >
+              {loadingCreate ? 'Loading' : 'Create'}
+            </button>
+          </div>
+
           {loading ? (
             <div>Loading...</div>
           ) : error ? (
@@ -77,7 +152,7 @@ export default function AdminTranslatorsScreen() {
                     <th className="p-5 text-left">NAME</th>
                     <th className="p-5 text-left">PRICE</th>
                     <th className="p-5 text-left">CATEGORY</th>
-                    {/* <th className="p-5 text-left">COUNT</th> */}
+
                     <th className="p-5 text-left">RATING</th>
                     <th className="p-5 text-left">ACTIONS</th>
                   </tr>
@@ -95,10 +170,18 @@ export default function AdminTranslatorsScreen() {
                       <td className=" p-5 ">{translator.rating}</td>
                       <td className=" p-5 ">
                         <Link href={`/admin/translator/${translator._id}`}>
-                          Edit
+                          <span className="pr-2 text-green-700 hover:font-bold">
+                            Edit
+                          </span>
                         </Link>
                         &nbsp;
-                        <button>Delete</button>
+                        <button
+                          type="button"
+                          onClick={() => deleteHandler(translator._id)}
+                          className="text-rose-700 hover:font-bold"
+                        >
+                          Delete
+                        </button>
                       </td>
                     </tr>
                   ))}
