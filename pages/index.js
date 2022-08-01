@@ -18,7 +18,6 @@ export default function Home({ translators }) {
       (x) => x.slug === translator.slug
     );
     const quantity = existItem ? existItem.quantity + 1 : 1;
-    //const { data } = await axios.get(`/api/translators/${translator._id}`);
 
     if (1 < quantity) {
       return toast.error(

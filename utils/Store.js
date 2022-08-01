@@ -43,7 +43,6 @@ function reducer(state, action) {
         ...state,
         favorites: {
           favoritesItems: [],
-          // shippingAddress: { location: {} },
           paymentMethod: '',
         },
       };

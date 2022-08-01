@@ -32,9 +32,6 @@ export default function PaymentScreen() {
     router.push('/placeorder');
   };
   useEffect(() => {
-    //   if (!shippingAddress.address) {
-    //     return router.push('/shipping');
-    //   }
     setSelectedPaymentMethod(paymentMethod || '');
   }, [paymentMethod, router]);
 
@@ -61,13 +58,6 @@ export default function PaymentScreen() {
             </div>
           ))}
           <div className="mb-4 flex flex justify-center">
-            {/* <button
-            onClick={() => router.push('/shipping')}
-            type="button"
-            className="default-button"
-          >
-            Back
-          </button> */}
             <button className="rounded bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 ">
               Next
             </button>

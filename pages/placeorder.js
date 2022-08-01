@@ -19,9 +19,8 @@ export default function PlaceOrderScreen() {
 
   const itemsPrice = round2(
     favoritesItems.reduce((a, c) => a + c.quantity * c.price, 0)
-  ); // 123.4567 => 123.46
+  );
 
-  //   const shippingPrice = itemsPrice > 200 ? 0 : 15;
   const taxPrice = round2(itemsPrice * 0.15);
   const totalPrice = round2(itemsPrice + taxPrice);
 
@@ -39,10 +38,8 @@ export default function PlaceOrderScreen() {
       setLoading(true);
       const { data } = await axios.post('/api/orders', {
         orderItems: favoritesItems,
-        // shippingAddress,
         paymentMethod,
         itemsPrice,
-        // shippingPrice,
         taxPrice,
         totalPrice,
       });
@@ -74,17 +71,6 @@ export default function PlaceOrderScreen() {
         ) : (
           <div className="grid md:grid-cols-4 md:gap-5">
             <div className="overflow-x-auto md:col-span-3">
-              {/* <div className="card  p-5">
-              <h2 className="mb-2 text-lg">Shipping Address</h2>
-              <div>
-                {shippingAddress.fullName}, {shippingAddress.address},{' '}
-                {shippingAddress.city}, {shippingAddress.postalCode},{' '}
-                {shippingAddress.country}
-              </div>
-              <div>
-                <Link href="/shipping">Edit</Link>
-              </div>
-            </div> */}
               <div className="card  p-5">
                 <h2 className="mb-2 text-lg font-bold text-sky-600">
                   Payment Method
@@ -104,7 +90,6 @@ export default function PlaceOrderScreen() {
                   <thead className="border-b">
                     <tr>
                       <th className="px-5 text-left">Sign Translators</th>
-                      {/* <th className="    p-5 text-right">Quantity</th> */}
                       <th className="p-5 text-right">Price</th>
                       <th className="p-5 text-right">Subtotal</th>
                     </tr>
@@ -126,7 +111,6 @@ export default function PlaceOrderScreen() {
                             </a>
                           </Link>
                         </td>
-                        {/* <td className=" p-5 text-right">{item.quantity}</td> */}
                         <td className="p-5 text-right">Ksh{item.price}</td>
                         <td className="p-5 text-right">Ksh {1 * item.price}</td>
                       </tr>
@@ -156,12 +140,7 @@ export default function PlaceOrderScreen() {
                       <div>Ksh {taxPrice}</div>
                     </div>
                   </li>
-                  <li>
-                    {/* <div className="mb-2 flex justify-between">
-                    <div>Shipping</div>
-                    <div>${shippingPrice}</div>
-                  </div> */}
-                  </li>
+                  <li></li>
                   <li>
                     <div className="mb-2 flex justify-between">
                       <div>Total</div>

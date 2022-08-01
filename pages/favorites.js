@@ -40,7 +40,6 @@ function FavoritesScreen() {
                 <thead className="border-b mb-2">
                   <tr>
                     <th className="font-bold text-left">Sign Translator</th>
-                    {/* <th className="p-5 text-right">Quantity</th> */}
                     <th className="font-bold p-9 text-right">Price</th>
                     <th className="font-bold p-5">Action</th>
                   </tr>
@@ -62,7 +61,6 @@ function FavoritesScreen() {
                           </a>
                         </Link>
                       </td>
-                      {/* <td className="p-5 text-right">{item.quantity}</td> */}
                       <td className="font-bold text-sky-600 p-5 text-right">
                         Ksh {item.price}
                       </td>

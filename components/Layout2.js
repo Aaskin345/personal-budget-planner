@@ -1,7 +1,6 @@
 import { signOut, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import Link from 'next/link';
-// import React from 'react';
 import React, { useContext, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { Menu } from '@headlessui/react';
@@ -44,7 +43,6 @@ export default function Layout({ title, children }) {
               <a className="text-sky-600 hover:scale-110  text-3xl font-extrabold leading-tight">
                 Sign Trans
               </a>
-              {/* <a className="text-4x font-bold">Sign Translators</a> */}
             </Link>
 
             <div>

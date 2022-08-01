@@ -1,13 +1,9 @@
-//import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-// import React from 'react';
 import Layout2 from '../../components/Layout2';
-//import data from '../../utils/data';
 import React, { useContext } from 'react';
 import { toast } from 'react-toastify';
-// import { Store } from '../utils/Store';
 import { Store } from '../../utils/Store';
 import Translator from '../../models/Translator';
 import db from '../../utils/db';
@@ -29,7 +25,6 @@ export default function TranslatorScreen(props) {
       (x) => x.slug === translator.slug
     );
     const quantity = existItem ? existItem.quantity + 1 : 1;
-    //const { data } = await axios.get(`/api/translators/${translator._id}`);
 
     if (1 < quantity) {
       return toast.error(
