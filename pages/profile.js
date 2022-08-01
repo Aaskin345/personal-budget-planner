@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { getError } from '../utils/error';
 import axios from 'axios';
-import Layout from '../components/Layout';
+import Layout2 from '../components/Layout2';
 
 export default function ProfileScreen() {
   const { data: session } = useSession();
@@ -45,7 +45,7 @@ export default function ProfileScreen() {
   };
 
   return (
-    <Layout title="Profile">
+    <Layout2 title="Profile">
       <div className="flex justify-center pt-20">
         <form
           className="max-w-screen-sm bg-white shadow-2xl rounded-3xl px-8 pt-6 pb-8 mb-4"
@@ -140,7 +140,7 @@ export default function ProfileScreen() {
           </div>
         </form>
       </div>
-    </Layout>
+    </Layout2>
   );
 }
 

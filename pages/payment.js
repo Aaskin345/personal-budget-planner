@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
 import CheckoutWizard from '../components/CheckoutWizard';
-import Layout from '../components/Layout';
+import Layout2 from '../components/Layout2';
 import { Store } from '../utils/Store';
 
 export default function PaymentScreen() {
@@ -40,7 +40,7 @@ export default function PaymentScreen() {
 
   return (
     <div className="">
-      <Layout title="Payment Method">
+      <Layout2 title="Payment Method">
         <CheckoutWizard activeStep={1} />
         <form className=" mx-auto max-w-screen-md" onSubmit={submitHandler}>
           <h1 className="flex justify-center mb-4 text-xl">Payment Method</h1>
@@ -73,7 +73,7 @@ export default function PaymentScreen() {
             </button>
           </div>
         </form>
-      </Layout>
+      </Layout2>
     </div>
   );
 }

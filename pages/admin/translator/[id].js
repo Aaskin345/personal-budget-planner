@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useReducer } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import Layout from '../../../components/Layout';
+import Layout2 from '../../../components/Layout2';
 import { getError } from '../../../utils/error';
 
 function reducer(state, action) {
@@ -130,7 +130,7 @@ export default function AdminTranslatorEditScreen() {
   };
 
   return (
-    <Layout title={`Edit Translator ${translatorId}`}>
+    <Layout2 title={`Edit Translator ${translatorId}`}>
       <div className="grid md:grid-cols-4 md:gap-5">
         <div>
           <ul>
@@ -290,7 +290,7 @@ export default function AdminTranslatorEditScreen() {
           )}
         </div>
       </div>
-    </Layout>
+    </Layout2>
   );
 }
 

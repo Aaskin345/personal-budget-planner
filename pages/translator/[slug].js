@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 // import React from 'react';
-import Layout from '../../components/Layout';
+import Layout2 from '../../components/Layout2';
 //import data from '../../utils/data';
 import React, { useContext } from 'react';
 import { toast } from 'react-toastify';
@@ -20,7 +20,7 @@ export default function TranslatorScreen(props) {
 
   if (!translator) {
     return (
-      <Layout title="Translator Not Found">Sign Translator Not Found</Layout>
+      <Layout2 title="Translator Not Found">Sign Translator Not Found</Layout2>
     );
   }
 
@@ -45,7 +45,7 @@ export default function TranslatorScreen(props) {
   };
 
   return (
-    <Layout title={translator.name}>
+    <Layout2 title={translator.name}>
       <div className="py-2">
         <Link href="/">
           <svg
@@ -152,7 +152,7 @@ export default function TranslatorScreen(props) {
           </div>
         </div>
       </div>
-    </Layout>
+    </Layout2>
   );
 }
 

@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import CheckoutWizard from '../components/CheckoutWizard';
-import Layout from '../components/Layout';
+import Layout2 from '../components/Layout2';
 import { getError } from '../utils/error';
 import { Store } from '../utils/Store';
 
@@ -63,17 +63,18 @@ export default function PlaceOrderScreen() {
   };
 
   return (
-    <Layout title="Place Order">
+    <Layout2 title="Place Order">
       <CheckoutWizard activeStep={2} />
-      <h1 className="mb-4 text-xl">Place Hire Order</h1>
-      {favoritesItems.length === 0 ? (
-        <div>
-          Favorites is empty. <Link href="/">Go To Sign Translators</Link>
-        </div>
-      ) : (
-        <div className="grid md:grid-cols-4 md:gap-5">
-          <div className="overflow-x-auto md:col-span-3">
-            {/* <div className="card  p-5">
+      <div className="">
+        <h1 className="mb-4 text-xl">Place Hire Order</h1>
+        {favoritesItems.length === 0 ? (
+          <div>
+            Favorites is empty. <Link href="/">Go To Sign Translators</Link>
+          </div>
+        ) : (
+          <div className="grid md:grid-cols-4 md:gap-5">
+            <div className="overflow-x-auto md:col-span-3">
+              {/* <div className="card  p-5">
               <h2 className="mb-2 text-lg">Shipping Address</h2>
               <div>
                 {shippingAddress.fullName}, {shippingAddress.address},{' '}
@@ -84,104 +85,105 @@ export default function PlaceOrderScreen() {
                 <Link href="/shipping">Edit</Link>
               </div>
             </div> */}
-            <div className="card  p-5">
-              <h2 className="mb-2 text-lg font-bold text-sky-600">
-                Payment Method
-              </h2>
-              <div>{paymentMethod}</div>
-              <div className="pt-3 ">
+              <div className="card  p-5">
+                <h2 className="mb-2 text-lg font-bold text-sky-600">
+                  Payment Method
+                </h2>
+                <div>{paymentMethod}</div>
+                <div className="pt-3 ">
+                  <div className="rounded bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 w-16">
+                    <Link href="/payment">Edit</Link>
+                  </div>
+                </div>
+              </div>
+              <div className="card overflow-x-auto p-5">
+                <h2 className="mb-2 text-lg font-bold text-sky-600">
+                  Sign Translators
+                </h2>
+                <table className="min-w-full">
+                  <thead className="border-b">
+                    <tr>
+                      <th className="px-5 text-left">Sign Translators</th>
+                      {/* <th className="    p-5 text-right">Quantity</th> */}
+                      <th className="p-5 text-right">Price</th>
+                      <th className="p-5 text-right">Subtotal</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {favoritesItems.map((item) => (
+                      <tr key={item._id} className="border-b">
+                        <td>
+                          <Link href={`/translator/${item.slug}`}>
+                            <a className="flex items-center">
+                              <Image
+                                src={item.image}
+                                alt={item.name}
+                                width={50}
+                                height={50}
+                              ></Image>
+                              &nbsp;
+                              {item.name}
+                            </a>
+                          </Link>
+                        </td>
+                        {/* <td className=" p-5 text-right">{item.quantity}</td> */}
+                        <td className="p-5 text-right">Ksh{item.price}</td>
+                        <td className="p-5 text-right">Ksh {1 * item.price}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
                 <div className="rounded bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 w-16">
-                  <Link href="/payment">Edit</Link>
+                  <Link href="/favorites">Edit</Link>
                 </div>
               </div>
             </div>
-            <div className="card overflow-x-auto p-5">
-              <h2 className="mb-2 text-lg font-bold text-sky-600">
-                Sign Translators
-              </h2>
-              <table className="min-w-full">
-                <thead className="border-b">
-                  <tr>
-                    <th className="px-5 text-left">Sign Translators</th>
-                    {/* <th className="    p-5 text-right">Quantity</th> */}
-                    <th className="p-5 text-right">Price</th>
-                    <th className="p-5 text-right">Subtotal</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {favoritesItems.map((item) => (
-                    <tr key={item._id} className="border-b">
-                      <td>
-                        <Link href={`/translator/${item.slug}`}>
-                          <a className="flex items-center">
-                            <Image
-                              src={item.image}
-                              alt={item.name}
-                              width={50}
-                              height={50}
-                            ></Image>
-                            &nbsp;
-                            {item.name}
-                          </a>
-                        </Link>
-                      </td>
-                      {/* <td className=" p-5 text-right">{item.quantity}</td> */}
-                      <td className="p-5 text-right">Ksh{item.price}</td>
-                      <td className="p-5 text-right">Ksh {1 * item.price}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <div className="rounded bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 w-16">
-                <Link href="/favorites">Edit</Link>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="card  p-5">
-              <h2 className="mb-2 text-lg font-bold text-sky-600">
-                Hire Order Summary
-              </h2>
-              <ul>
-                <li>
-                  <div className="mb-2 flex justify-between">
-                    <div>Translator</div>
-                    <div>Ksh {itemsPrice}</div>
-                  </div>
-                </li>
-                <li>
-                  <div className="mb-2 flex justify-between">
-                    <div>Tax</div>
-                    <div>Ksh {taxPrice}</div>
-                  </div>
-                </li>
-                <li>
-                  {/* <div className="mb-2 flex justify-between">
+            <div>
+              <div className="card  p-5">
+                <h2 className="mb-2 text-lg font-bold text-sky-600">
+                  Hire Order Summary
+                </h2>
+                <ul>
+                  <li>
+                    <div className="mb-2 flex justify-between">
+                      <div>Translator</div>
+                      <div>Ksh {itemsPrice}</div>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="mb-2 flex justify-between">
+                      <div>Tax</div>
+                      <div>Ksh {taxPrice}</div>
+                    </div>
+                  </li>
+                  <li>
+                    {/* <div className="mb-2 flex justify-between">
                     <div>Shipping</div>
                     <div>${shippingPrice}</div>
                   </div> */}
-                </li>
-                <li>
-                  <div className="mb-2 flex justify-between">
-                    <div>Total</div>
-                    <div>Ksh{totalPrice}</div>
-                  </div>
-                </li>
-                <li>
-                  <button
-                    disabled={loading}
-                    onClick={placeOrderHandler}
-                    className="rounded bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 w-full"
-                  >
-                    {loading ? 'Loading...' : 'Place Order'}
-                  </button>
-                </li>
-              </ul>
+                  </li>
+                  <li>
+                    <div className="mb-2 flex justify-between">
+                      <div>Total</div>
+                      <div>Ksh{totalPrice}</div>
+                    </div>
+                  </li>
+                  <li>
+                    <button
+                      disabled={loading}
+                      onClick={placeOrderHandler}
+                      className="rounded bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 w-full"
+                    >
+                      {loading ? 'Loading...' : 'Place Order'}
+                    </button>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-    </Layout>
+        )}
+      </div>
+    </Layout2>
   );
 }
 

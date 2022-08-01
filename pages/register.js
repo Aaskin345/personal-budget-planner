@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React, { useEffect } from 'react';
 import { signIn, useSession } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
-import Layout from '../components/Layout';
+import Layout2 from '../components/Layout2';
 import { getError } from '../utils/error';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
@@ -47,7 +47,7 @@ export default function LoginScreen() {
     }
   };
   return (
-    <Layout title="Create Account">
+    <Layout2 title="Create Account">
       <div className="flex justify-center pt-20">
         <form
           className="max-w-screen-sm bg-white shadow-2xl rounded-3xl px-8 pt-6 pb-8 mb-4"
@@ -148,6 +148,6 @@ export default function LoginScreen() {
           </div>
         </form>
       </div>
-    </Layout>
+    </Layout2>
   );
 }

@@ -11,6 +11,7 @@ html,
 body {
   padding: 0;
   margin: 0;
+  /* @apply bg-gradient-to-r from-gray-100 to-gray-300; */
 }
 
 a {
@@ -20,6 +21,32 @@ a {
 
 .card {
   @apply mb-5 block   rounded-2xl border border-slate-300  shadow-2xl;
+}
+
+.gradient {
+  background: linear-gradient(90deg, #1f86ab 0%, #86d7ff 100%);
+}
+.cont {
+  @apply container m-auto mt-4 px-4;
+}
+.navbar {
+  background: linear-gradient(90deg, #1f86ab 0%, #86d7ff 100%);
+  @apply sticky top-0 z-50 text-white;
+}
+html:not([data-scroll='0']) .navbar {
+  background: #fff;
+  color: black;
+}
+
+header.nav-fixed {
+  width: 100%;
+  position: fixed;
+  transition: 0.3s ease-in-out;
+}
+
+.nav-active {
+  background-color: #fff;
+  box-shadow: 5px -1px 12px -5px grey;
 }
 
 .card:hover .scaling {

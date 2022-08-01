@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Link from 'next/link';
 import React, { useEffect, useReducer } from 'react';
-import Layout from '../../components/Layout';
+import Layout2 from '../../components/Layout2';
 import { getError } from '../../utils/error';
 
 function reducer(state, action) {
@@ -38,84 +38,86 @@ export default function AdminOrderScreen() {
   }, []);
 
   return (
-    <Layout title="Admin Dashboard">
-      <div className="grid  md:grid-cols-4 md:gap-5">
-        <div>
-          <ul>
-            <li>
-              <Link href="/admin/dashboard">
-                <a className="hover:font-bold">Dashboard</a>
-              </Link>
-            </li>
-            <li className="font-bold text-sky-600">
-              <Link href="/admin/orders">Hire Orders</Link>
-            </li>
-            <li className="hover:font-bold">
-              <Link href="/admin/translators">Sign Translators</Link>
-            </li>
-            <li className="hover:font-bold">
-              <Link href="/admin/users">Users</Link>
-            </li>
-          </ul>
-        </div>
-        <div className="overflow-x-auto md:col-span-3">
-          <h1 className="mb-4 text-3xl text-sky-600">Admin Hire Orders</h1>
+    <Layout2 title="Admin Dashboard">
+      <div className="">
+        <div className="grid  md:grid-cols-4 md:gap-5">
+          <div>
+            <ul>
+              <li>
+                <Link href="/admin/dashboard">
+                  <a className="hover:font-bold">Dashboard</a>
+                </Link>
+              </li>
+              <li className="font-bold text-sky-600">
+                <Link href="/admin/orders">Hire Orders</Link>
+              </li>
+              <li className="hover:font-bold">
+                <Link href="/admin/translators">Sign Translators</Link>
+              </li>
+              <li className="hover:font-bold">
+                <Link href="/admin/users">Users</Link>
+              </li>
+            </ul>
+          </div>
+          <div className="overflow-x-auto md:col-span-3">
+            <h1 className="mb-4 text-3xl text-sky-600">Admin Hire Orders</h1>
 
-          {loading ? (
-            <div>Loading...</div>
-          ) : error ? (
-            <div className="alert-error">{error}</div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="min-w-full">
-                <thead className="border-b">
-                  <tr>
-                    <th className="px-5 text-left">ID</th>
-                    <th className="p-5 text-left">USER</th>
-                    <th className="p-5 text-left">DATE</th>
-                    <th className="p-5 text-left">TOTAL</th>
-                    <th className="p-5 text-left">PAID</th>
+            {loading ? (
+              <div>Loading...</div>
+            ) : error ? (
+              <div className="alert-error">{error}</div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="min-w-full">
+                  <thead className="border-b">
+                    <tr>
+                      <th className="px-5 text-left">ID</th>
+                      <th className="p-5 text-left">USER</th>
+                      <th className="p-5 text-left">DATE</th>
+                      <th className="p-5 text-left">TOTAL</th>
+                      <th className="p-5 text-left">PAID</th>
 
-                    <th className="p-5 text-left">ACTION</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {orders.map((order) => (
-                    <tr key={order._id} className="border-b">
-                      <td className="p-5">{order._id.substring(20, 24)}</td>
-                      <td className="p-5">
-                        {order.user ? order.user.name : 'DELETED USER'}
-                      </td>
-                      <td className="p-5">
-                        {order.createdAt.substring(0, 10)}
-                      </td>
-                      <td className="p-5">Ksh&nbsp;{order.totalPrice}</td>
-                      <td className="p-5">
-                        {order.isPaid ? (
-                          <div className="text-green-700">
-                            Paid at {order.paidAt.substring(0, 10)}
-                          </div>
-                        ) : (
-                          <div className="text-rose-700">Not paid</div>
-                        )}
-                      </td>
-
-                      <td className="p-5">
-                        <Link href={`/order/${order._id}`} passHref>
-                          <a className="text-gray-900 underline hover:text-sky-600">
-                            Details
-                          </a>
-                        </Link>
-                      </td>
+                      <th className="p-5 text-left">ACTION</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
+                  </thead>
+                  <tbody>
+                    {orders.map((order) => (
+                      <tr key={order._id} className="border-b">
+                        <td className="p-5">{order._id.substring(20, 24)}</td>
+                        <td className="p-5">
+                          {order.user ? order.user.name : 'DELETED USER'}
+                        </td>
+                        <td className="p-5">
+                          {order.createdAt.substring(0, 10)}
+                        </td>
+                        <td className="p-5">Ksh&nbsp;{order.totalPrice}</td>
+                        <td className="p-5">
+                          {order.isPaid ? (
+                            <div className="text-green-700">
+                              Paid at {order.paidAt.substring(0, 10)}
+                            </div>
+                          ) : (
+                            <div className="text-rose-700">Not paid</div>
+                          )}
+                        </td>
+
+                        <td className="p-5">
+                          <Link href={`/order/${order._id}`} passHref>
+                            <a className="text-gray-900 underline hover:text-sky-600">
+                              Details
+                            </a>
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </Layout>
+    </Layout2>
   );
 }
 

@@ -12,7 +12,7 @@ import {
   Legend,
 } from 'chart.js';
 import React, { useEffect, useReducer } from 'react';
-import Layout from '../../components/Layout';
+import Layout2 from '../../components/Layout2';
 import { getError } from '../../utils/error';
 
 ChartJS.register(
@@ -77,7 +77,7 @@ function AdminDashboardScreen() {
     ],
   };
   return (
-    <Layout title="Admin Dashboard">
+    <Layout2 title="Admin Dashboard">
       <div className="grid  md:grid-cols-4 md:gap-5">
         <div>
           <ul>
@@ -154,7 +154,7 @@ function AdminDashboardScreen() {
           )}
         </div>
       </div>
-    </Layout>
+    </Layout2>
   );
 }
 

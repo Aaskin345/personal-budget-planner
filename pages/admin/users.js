@@ -2,7 +2,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import React, { useEffect, useReducer } from 'react';
 import { toast } from 'react-toastify';
-import Layout from '../../components/Layout';
+import Layout2 from '../../components/Layout2';
 import { getError } from '../../utils/error';
 
 function reducer(state, action) {
@@ -68,7 +68,7 @@ function AdminUsersScreen() {
   };
 
   return (
-    <Layout title="Users">
+    <Layout2 title="Users">
       <div className="grid md:grid-cols-4 md:gap-5">
         <div>
           <ul>
@@ -115,14 +115,14 @@ function AdminUsersScreen() {
                       <td className=" p-5 ">{user.email}</td>
                       <td className=" p-5 ">{user.isAdmin ? 'YES' : 'NO'}</td>
                       <td className=" p-5 ">
-                        <Link href={`/admin/user/${user._id}`} passHref>
+                        {/* <Link href={`/admin/user/${user._id}`} passHref>
                           <a type="button" className="default-button">
                             <span className="pr-2 text-green-700 hover:font-bold">
                               Edit
                             </span>
                           </a>
                         </Link>
-                        &nbsp;
+                        &nbsp; */}
                         <button
                           type="button"
                           onClick={() => deleteHandler(user._id)}
@@ -139,7 +139,7 @@ function AdminUsersScreen() {
           )}
         </div>
       </div>
-    </Layout>
+    </Layout2>
   );
 }
 

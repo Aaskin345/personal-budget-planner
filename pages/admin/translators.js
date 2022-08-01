@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useReducer } from 'react';
 import { toast } from 'react-toastify';
-import Layout from '../../components/Layout';
+import Layout2 from '../../components/Layout2';
 import { getError } from '../../utils/error';
 
 function reducer(state, action) {
@@ -106,7 +106,7 @@ export default function AdminTranslatorsScreen() {
     }
   };
   return (
-    <Layout title="Admin Translators">
+    <Layout2 title="Admin Translators">
       <div className="grid md:grid-cols-4 md:gap-5">
         <div>
           <ul>
@@ -191,7 +191,7 @@ export default function AdminTranslatorsScreen() {
           )}
         </div>
       </div>
-    </Layout>
+    </Layout2>
   );
 }
 

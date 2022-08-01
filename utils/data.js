@@ -16,16 +16,6 @@ const data = {
   ],
   translators: [
     {
-      name: 'Alice Jane',
-      slug: 'alice-jane',
-      category: 'Sign-English',
-      image: '/images/translator1.jpg',
-      price: 700,
-      rating: 4.5,
-      numReviews: 8,
-      description: 'I will translate Sign language to English and vice verser',
-    },
-    {
       name: 'Lucia Wanjiru',
       slug: 'lucia-wanjiru',
       category: 'Sign-Kiswahili',
