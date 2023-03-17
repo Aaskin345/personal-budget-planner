@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { getError } from '../utils/error';
 import axios from 'axios';
 import Layout2 from '../components/Layout2';
+import Link from 'next/link';
 
 export default function ProfileScreen() {
   const { data: session } = useSession();
@@ -51,7 +52,7 @@ export default function ProfileScreen() {
           className="max-w-screen-sm bg-white shadow-2xl rounded-3xl px-8 pt-6 pb-8 mb-4"
           onSubmit={handleSubmit(submitHandler)}
         >
-          <h1 className="mb-4 text-2xl font-bold text-sky-600">
+          <h1 className="mb-4 text-2xl font-bold text-green-600">
             Update Profile
           </h1>
 
@@ -59,7 +60,7 @@ export default function ProfileScreen() {
             <label htmlFor="name">Name</label>
             <input
               type="text"
-              className="w-full"
+              className="w-full bg-slate-400"
               id="name"
               autoFocus
               {...register('name', {
@@ -75,7 +76,7 @@ export default function ProfileScreen() {
             <label htmlFor="email">Email</label>
             <input
               type="email"
-              className="w-full"
+              className="w-full bg-slate-400"
               id="email"
               {...register('email', {
                 required: 'Please enter email',
@@ -90,10 +91,10 @@ export default function ProfileScreen() {
             )}
           </div>
 
-          <div className="mb-4">
+          <div className="mb-4 ">
             <label htmlFor="password">Password</label>
             <input
-              className="w-full"
+              className="w-full bg-slate-400"
               type="password"
               id="password"
               {...register('password', {
@@ -111,7 +112,7 @@ export default function ProfileScreen() {
           <div className="mb-4">
             <label htmlFor="confirmPassword">Confirm Password</label>
             <input
-              className="w-full"
+              className="w-full bg-slate-400"
               type="password"
               id="confirmPassword"
               {...register('confirmPassword', {
@@ -134,9 +135,16 @@ export default function ProfileScreen() {
           </div>
 
           <div className="mb-4">
-            <button className="rounded bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 w-full">
+            <button className="rounded bg-indigo-600 hover:bg-green-700 text-white font-bold py-2 px-4 w-full">
               Update Profile
             </button>
+          </div>
+          <div className="mb-4">
+            <Link href="/budgetty">
+              <button className="rounded bg-indigo-600 hover:bg-green-700 text-white font-bold py-2 px-2 ">
+                Back
+              </button>
+            </Link>
           </div>
         </form>
       </div>

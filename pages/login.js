@@ -16,7 +16,7 @@ export default function LoginScreen() {
 
   useEffect(() => {
     if (session?.user) {
-      router.push(redirect || '/');
+      router.push(redirect || '/budgetty');
     }
   }, [router, session, redirect]);
 
@@ -39,15 +39,16 @@ export default function LoginScreen() {
       toast.error(getError(err));
     }
   };
+
   return (
     <Layout2 title="Login">
       <div className="flex justify-center pt-20">
         <form
-          className="max-w-screen-sm bg-white shadow-2xl rounded-3xl px-8 pt-6 pb-8 mb-4"
+          className="max-w-screen-sm bg-gray-100 shadow-2xl rounded-3xl px-8 pt-6 pb-8 mb-4"
           onSubmit={handleSubmit(submitHandler)}
         >
-          <h1 className="mb-4 text-2xl font-bold text-sky-600">Login</h1>
-          <div className="mb-4">
+          <h1 className="mb-4 text-2xl font-bold text-orange-600">Login</h1>
+          <div className="mb-4 rounded-md shadow-sm -space-y-px">
             <label htmlFor="email">Email</label>
             <input
               type="email"
@@ -58,7 +59,7 @@ export default function LoginScreen() {
                   message: 'Please enter valid email',
                 },
               })}
-              className="w-full"
+              className="w-full bg-blue-400"
               id="email"
               autoFocus
             ></input>
@@ -66,7 +67,7 @@ export default function LoginScreen() {
               <div className="text-red-500">{errors.email.message}</div>
             )}
           </div>
-          <div className="mb-4">
+          <div className="mb-4 rounded-md shadow-sm -space-y-px">
             <label htmlFor="password">Password</label>
             <input
               type="password"
@@ -77,7 +78,7 @@ export default function LoginScreen() {
                   message: 'password is more than 5 chars',
                 },
               })}
-              className="w-full"
+              className="w-full bg-blue-400"
               id="password"
               autoFocus
             ></input>
@@ -86,13 +87,13 @@ export default function LoginScreen() {
             )}
           </div>
           <div className="mb-4 ">
-            <button className="rounded bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 w-full">
+            <button className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
               Login
             </button>
           </div>
           <div className="mb-4 ">
             Don&apos;t have an account? &nbsp;
-            <span className="text-sky-600 hover:text-sky-800">
+            <span className="text-sky-600 hover:text-green-700">
               <Link href={`/register?redirect=${redirect || '/'}`}>
                 Register
               </Link>

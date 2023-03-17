@@ -65,7 +65,7 @@ export default function AdminTranslatorsScreen() {
       dispatch({ type: 'CREATE_REQUEST' });
       const { data } = await axios.post(`/api/admin/translators`);
       dispatch({ type: 'CREATE_SUCCESS' });
-      toast.success('Sign translator created successfully');
+      toast.success('created successfully');
       router.push(`/admin/translator/${data.translator._id}`);
     } catch (err) {
       dispatch({ type: 'CREATE_FAIL' });
@@ -99,7 +99,7 @@ export default function AdminTranslatorsScreen() {
       dispatch({ type: 'DELETE_REQUEST' });
       await axios.delete(`/api/admin/translators/${translatorId}`);
       dispatch({ type: 'DELETE_SUCCESS' });
-      toast.success('Translator deleted successfully');
+      toast.success('Deleted successfully');
     } catch (err) {
       dispatch({ type: 'DELETE_FAIL' });
       toast.error(getError(err));
@@ -112,23 +112,23 @@ export default function AdminTranslatorsScreen() {
           <ul>
             <li>
               <Link href="/admin/dashboard">
-                <a className="hover:font-bold">Dashboard</a>
+                <a className="hover:font-bold text-green-500">Dashboard</a>
               </Link>
             </li>
-            <li className="hover:font-bold">
-              <Link href="/admin/orders">Hire Orders</Link>
+            <li className="hover:font-bold text-green-500">
+              <Link href="/admin/expenses">Expenses</Link>
             </li>
-            <li className="font-bold text-sky-600">
-              <Link href="/admin/translators">Sign Translators</Link>
+            <li className="font-bold text-green-800">
+              <Link href="/admin/translators">Satisfied Users</Link>
             </li>
-            <li className="hover:font-bold">
+            <li className="hover:font-bold text-green-500">
               <Link href="/admin/users">Users</Link>
             </li>
           </ul>
         </div>
         <div className="overflow-x-auto md:col-span-3">
           <div className="flex justify-between">
-            <h1 className="mb-4 text-3xl text-sky-600">Sign Translators</h1>
+            <h1 className="mb-4 text-3xl text-green-600">Satisfied Users</h1>
             {loadingDelete && <div>Deleting item...</div>}
             <button
               disabled={loadingCreate}
@@ -150,10 +150,7 @@ export default function AdminTranslatorsScreen() {
                   <tr>
                     <th className="px-5 text-left">ID</th>
                     <th className="p-5 text-left">NAME</th>
-                    <th className="p-5 text-left">PRICE</th>
-                    <th className="p-5 text-left">CATEGORY</th>
 
-                    <th className="p-5 text-left">RATING</th>
                     <th className="p-5 text-left">ACTIONS</th>
                   </tr>
                 </thead>
@@ -164,10 +161,7 @@ export default function AdminTranslatorsScreen() {
                         {translator._id.substring(20, 24)}
                       </td>
                       <td className=" p-5 ">{translator.name}</td>
-                      <td className=" p-5 ">Ksh&nbsp;{translator.price}</td>
-                      <td className=" p-5 ">{translator.category}</td>
 
-                      <td className=" p-5 ">{translator.rating}</td>
                       <td className=" p-5 ">
                         <Link href={`/admin/translator/${translator._id}`}>
                           <span className="pr-2 text-green-700 hover:font-bold">

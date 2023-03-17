@@ -74,22 +74,23 @@ function AdminUsersScreen() {
           <ul>
             <li>
               <Link href="/admin/dashboard">
-                <a className="hover:font-bold">Dashboard</a>
+                <a className="hover:font-bold text-green-600">Dashboard</a>
               </Link>
             </li>
-            <li className="hover:font-bold">
-              <Link href="/admin/orders">Hire Orders</Link>
+            <li className="hover:font-bold text-green-500">
+              <Link href="/admin/expenses">Expenses</Link>
             </li>
-            <li className="hover:font-bold">
-              <Link href="/admin/translators">Sign Translators</Link>
+
+            <li className="hover:font-semibold text-green-500">
+              <Link href="/admin/translators">Satisfied Users</Link>
             </li>
-            <li className="font-bold text-sky-600">
+            <li className="font-semibold text-green-600">
               <Link href="/admin/users">Users</Link>
             </li>
           </ul>
         </div>
         <div className="overflow-x-auto md:col-span-3">
-          <h1 className="mb-4 text-3xl text-sky-600">Users</h1>
+          <h1 className="mb-4 text-3xl text-green-600">Users</h1>
           {loadingDelete && <div>Deleting...</div>}
           {loading ? (
             <div>Loading...</div>
@@ -126,7 +127,7 @@ function AdminUsersScreen() {
                         <button
                           type="button"
                           onClick={() => deleteHandler(user._id)}
-                          className="text-rose-700 hover:font-bold"
+                          className="text-rose-700 hover:font-blue"
                         >
                           Delete
                         </button>

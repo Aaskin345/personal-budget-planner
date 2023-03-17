@@ -1,11 +1,11 @@
-import Translator from '../../../models/Translator';
+import Customer from '../../../models/Customer';
 import db from '../../../utils/db';
 
 const handler = async (req, res) => {
   await db.connect();
-  const translator = await Translator.findById(req.query.id);
+  const customer = await Customer.findById(req.query.id);
   await db.disconnect();
-  res.send(translator);
+  res.send(customer);
 };
 
 export default handler;

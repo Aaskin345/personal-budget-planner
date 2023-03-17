@@ -1,6 +1,6 @@
 import { getSession } from 'next-auth/react';
-import Translator from '../../../../../models/Translator';
 import db from '../../../../../utils/db';
+import Customer from '../../../../../models/Customer';
 
 const handler = async (req, res) => {
   const session = await getSession({ req });
@@ -21,38 +21,37 @@ const handler = async (req, res) => {
 };
 const getHandler = async (req, res) => {
   await db.connect();
-  const translator = await Translator.findById(req.query.id);
+  const customer = await Customer.findById(req.query.id);
   await db.disconnect();
-  res.send(translator);
+  res.send(customer);
 };
 const putHandler = async (req, res) => {
   await db.connect();
-  const translator = await Translator.findById(req.query.id);
-  if (translator) {
-    translator.name = req.body.name;
-    translator.slug = req.body.slug;
-    translator.price = req.body.price;
-    translator.category = req.body.category;
-    translator.image = req.body.image;
-    translator.description = req.body.description;
-    await translator.save();
+  const customer = await Customer.findById(req.query.id);
+  if (customer) {
+    customer.name = req.body.name;
+    customer.slug = req.body.slug;
+    customer.description = req.body.description;
+    customer.image = req.body.image;
+
+    await customer.save();
     await db.disconnect();
-    res.send({ message: 'Sign Translator updated successfully' });
+    res.send({ message: 'updated successfully' });
   } else {
     await db.disconnect();
-    res.status(404).send({ message: 'Sign Translator not found' });
+    res.status(404).send({ message: ' not found' });
   }
 };
 const deleteHandler = async (req, res) => {
   await db.connect();
-  const translator = await Translator.findById(req.query.id);
-  if (translator) {
-    await translator.remove();
+  const customer = await Customer.findById(req.query.id);
+  if (customer) {
+    await customer.remove();
     await db.disconnect();
-    res.send({ message: 'Translator deleted successfully' });
+    res.send({ message: ' deleted successfully' });
   } else {
     await db.disconnect();
-    res.status(404).send({ message: 'Sign translator not found' });
+    res.status(404).send({ message: ' not found' });
   }
 };
 export default handler;

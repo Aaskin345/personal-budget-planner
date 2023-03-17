@@ -16,7 +16,7 @@ export default function LoginScreen() {
 
   useEffect(() => {
     if (session?.user) {
-      router.push(redirect || '/');
+      router.push(redirect || '/budgetty');
     }
   }, [router, session, redirect]);
 
@@ -48,19 +48,19 @@ export default function LoginScreen() {
   };
   return (
     <Layout2 title="Create Account">
-      <div className="flex justify-center pt-20">
+      <div className="flex justify-center pt-20 bg-slate bg-white">
         <form
-          className="max-w-screen-sm bg-white shadow-2xl rounded-3xl px-8 pt-6 pb-8 mb-4"
+          className="max-w-screen-sm bg-gray-200 shadow-2xl rounded-3xl px-8 pt-5 pb-5 mb-4"
           onSubmit={handleSubmit(submitHandler)}
         >
-          <h1 className="mb-4 text-2xl font-bold text-sky-600">
-            Create Account
+          <h1 className="mb-4 text-2xl font-bold text-orange-600">
+            Create an Account with us
           </h1>
-          <div className="mb-4">
+          <div className="mb-4 ">
             <label htmlFor="name">Name</label>
             <input
               type="text"
-              className="w-full"
+              className="block w-full pl-10 py-2 text-base leading-5 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
               id="name"
               autoFocus
               {...register('name', {
@@ -83,7 +83,7 @@ export default function LoginScreen() {
                   message: 'Please enter valid email',
                 },
               })}
-              className="w-full"
+              className="block w-full pl-10 py-2 text-base leading-5 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
               id="email"
             ></input>
             {errors.email && (
@@ -101,7 +101,7 @@ export default function LoginScreen() {
                   message: 'password is more than 5 chars',
                 },
               })}
-              className="w-full"
+              className="block w-full pl-10 py-2 text-base leading-5 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
               id="password"
               autoFocus
             ></input>
@@ -112,7 +112,7 @@ export default function LoginScreen() {
           <div className="mb-4">
             <label htmlFor="confirmPassword">Confirm Password</label>
             <input
-              className="w-full"
+              className="block w-full pl-10 py-2 text-base leading-5 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
               type="password"
               id="confirmPassword"
               {...register('confirmPassword', {
@@ -136,13 +136,13 @@ export default function LoginScreen() {
           </div>
 
           <div className="mb-4 ">
-            <button className="rounded bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 w-full">
+            <button className="rounded bg-sky-600 hover:bg-green-700 text-white font-bold py-2 px-4 w-full">
               Register
             </button>
           </div>
           <div className="mb-4 ">
             Already have an account? &nbsp;
-            <span className="text-sky-600 hover:text-sky-800">
+            <span className="text-sky-600 hover:text-green-800">
               <Link href={`/login?redirect=${redirect || '/'}`}>Login</Link>
             </span>
           </div>

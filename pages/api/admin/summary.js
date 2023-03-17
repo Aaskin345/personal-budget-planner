@@ -1,9 +1,9 @@
 import { getSession } from 'next-auth/react';
 import Order from '../../../models/Order';
-import Translator from '../../../models/Translator';
+import Customer from '../../../models/Customer';
 import User from '../../../models/User';
 import db from '../../../utils/db';
-
+import Expense from '../../../models/Expense';
 const handler = async (req, res) => {
   const session = await getSession({ req });
   console.log(session);
@@ -14,7 +14,7 @@ const handler = async (req, res) => {
   await db.connect();
 
   const ordersCount = await Order.countDocuments();
-  const translatorsCount = await Translator.countDocuments();
+  const customersCount = await Customer.countDocuments();
   const usersCount = await User.countDocuments();
 
   const ordersPriceGroup = await Order.aggregate([
@@ -36,12 +36,23 @@ const handler = async (req, res) => {
       },
     },
   ]);
+  const expensesPriceGroup = await Expense.aggregate([
+    {
+      $group: {
+        _id: null,
+        expenses: { $sum: '$amount' },
+      },
+    },
+  ]);
+  const expensesPrice =
+    expensesPriceGroup.length > 0 ? expensesPriceGroup[0].expenses : 0;
 
   await db.disconnect();
   res.send({
     ordersCount,
-    translatorsCount,
+    customersCount,
     usersCount,
+    expensesPrice,
     ordersPrice,
     salesData,
   });

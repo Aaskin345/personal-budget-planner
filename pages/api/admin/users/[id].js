@@ -24,7 +24,7 @@ const deleteHandler = async (req, res) => {
     }
     await user.remove();
     await db.disconnect();
-    res.send({ message: 'User Deleted' });
+    res.send({ message: 'User Deleted Successfully' });
   } else {
     await db.disconnect();
     res.status(404).send({ message: 'User Not Found' });

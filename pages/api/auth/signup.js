@@ -39,7 +39,7 @@ async function handler(req, res) {
   const user = await newUser.save();
   await db.disconnect();
   res.status(201).send({
-    message: 'Created user!',
+    message: 'Created user successfully!',
     _id: user._id,
     name: user.name,
     email: user.email,

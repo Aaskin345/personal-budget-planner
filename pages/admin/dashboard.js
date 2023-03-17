@@ -12,7 +12,7 @@ import {
   Legend,
 } from 'chart.js';
 import React, { useEffect, useReducer } from 'react';
-import Layout2 from '../../components/Layout2';
+import Layout3 from '../../components/Layout3';
 import { getError } from '../../utils/error';
 
 ChartJS.register(
@@ -70,14 +70,14 @@ function AdminDashboardScreen() {
     labels: summary.salesData.map((x) => x._id), // 2022/01 2022/03
     datasets: [
       {
-        label: 'Sales',
+        label: 'Expenses',
         backgroundColor: '#9fd7e9',
-        data: summary.salesData.map((x) => x.totalSales),
+        data: summary.salesData.map((x) => x.expensePrice),
       },
     ],
   };
   return (
-    <Layout2 title="Admin Dashboard">
+    <Layout3 title="Admin Dashboard">
       <div className="grid  md:grid-cols-4 md:gap-5">
         <div>
           <ul>
@@ -86,11 +86,12 @@ function AdminDashboardScreen() {
                 <a className="font-bold text-sky-600">Dashboard</a>
               </Link>
             </li>
+
             <li className="hover:font-bold">
-              <Link href="/admin/orders">Hire Orders</Link>
+              <Link href="/admin/expenses">Expenses</Link>
             </li>
             <li className="hover:font-bold">
-              <Link href="/admin/translators">Sign Translators</Link>
+              <Link href="/admin/translators">Satisfied Users </Link>
             </li>
             <li className="hover:font-bold">
               <Link href="/admin/users">Users</Link>
@@ -109,19 +110,17 @@ function AdminDashboardScreen() {
                 <Link href="/admin/orders">
                   <div className="card: rounded-lg border border-slate-300 shadow-xl m-5 p-5 hover:scale-110 shadow-2xl shadow-sky-900 hover:bg-gray-100">
                     <p className="text-2xl text-sky-600">
-                      Ksh&nbsp;{summary.ordersPrice}{' '}
+                      Ksh&nbsp;{summary.OrdersPrice}{' '}
                     </p>
                     <p>Sales</p>
                     <div className="text-sky-600">View sales</div>
                   </div>
                 </Link>
-                <Link href="/admin/orders">
+                <Link href="/admin/expenses">
                   <div className="card: rounded-lg border border-slate-300 shadow-xl m-5 p-5 hover:scale-110 shadow-2xl shadow-sky-900 hover:bg-gray-100">
-                    <p className="text-2xl text-sky-600">
-                      {summary.ordersCount}{' '}
-                    </p>
-                    <p>Hire Orders</p>
-                    <div className="text-sky-600">View orders</div>
+                    <p> {summary.expensePrice} </p>
+                    <p>Expenses</p>
+                    <div className="text-sky-600">View Total expenses</div>
                   </div>
                 </Link>
                 <Link href="/admin/translators">
@@ -129,10 +128,11 @@ function AdminDashboardScreen() {
                     <p className="text-2xl text-sky-600">
                       {summary.translatorsCount}{' '}
                     </p>
-                    <p>Sign Translators</p>
-                    <div className="text-sky-600">View Translators</div>
+                    <p>Satisfied Users</p>
+                    <div className="text-sky-600">View Satisfied Users</div>
                   </div>
                 </Link>
+
                 <Link href="/admin/users">
                   <div className="card: rounded-lg border border-slate-300 shadow-xl m-5 p-5 hover:scale-110 shadow-2xl shadow-sky-900">
                     <p className="text-2xl text-sky-600">
@@ -154,7 +154,7 @@ function AdminDashboardScreen() {
           )}
         </div>
       </div>
-    </Layout2>
+    </Layout3>
   );
 }
 

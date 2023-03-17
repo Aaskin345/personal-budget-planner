@@ -1,21 +1,28 @@
 // import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faTwitter,
+  faInstagram,
+  faWhatsapp,
+  faSms,
+} from '@fortawesome/free-brands-svg-icons';
 import { useContext } from 'react';
 import { toast } from 'react-toastify';
 import Layout from '../components/Layout';
-import TranslatorItem from '../components/TranslatorItem';
+import SatisfiedCustomer from '../components/SatisfiedCustomer';
 // import data from '../utils/data';
-import Translator from '../models/Translator';
+import Customer from '../models/Customer';
 import db from '../utils/db';
 import { Store } from '../utils/Store';
 import Image from 'next/image';
 
-export default function Home({ translators }) {
+export default function Home({ customers }) {
   const { state, dispatch } = useContext(Store);
   const { favorites } = state;
 
-  const addToFavoritesHandler = async (translator) => {
+  const addToFavoritesHandler = async (customer) => {
     const existItem = favorites.favoritesItems.find(
-      (x) => x.slug === translator.slug
+      (x) => x.slug === customer.slug
     );
     const quantity = existItem ? existItem.quantity + 1 : 1;
 
@@ -26,7 +33,7 @@ export default function Home({ translators }) {
     }
     dispatch({
       type: 'FAVORITES_ADD_ITEM',
-      payload: { ...translator, quantity: 1 },
+      payload: { ...customer, quantity: 1 },
     });
 
     toast.success('Sign Translator added to the favorites');
@@ -43,21 +50,21 @@ export default function Home({ translators }) {
                 {/* <!--Left Col--> */}
                 <div className="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
                   <div className="text-white uppercase tracking-loose w-full">
-                    What a Sign translator?
+                    Budget with a reason
                   </div>
                   <h1 className="text-white my-4 text-5xl font-bold leading-tight">
-                    Web-Based Sign Translation Platform!
+                    Spend as per what is important in your life
                   </h1>
                   <div className="text-white leading-normal text-2xl mb-8">
-                    Is here to deliver. All skilled sign translators at the
-                    access of your device!
+                    PureBudgets is a virtual program to keep you in track with
+                    your budget.It has a time tested-budgetting method
                   </div>
                 </div>
                 {/* <!--Right Col--> */}
                 <div className="w-full md:w-3/5 py-6 text-center">
                   <Image
                     className="w-full md:w-4/5 z-1"
-                    src="/images/hero.png"
+                    src="/images/hero2.png"
                     alt=""
                     width="400"
                     height="300"
@@ -105,15 +112,110 @@ export default function Home({ translators }) {
           </div>
         </div>
 
-        <div className="cont pt-5 grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
-          {translators.map((translator) => (
-            <TranslatorItem
-              translator={translator}
-              key={translator.slug}
-              addToFavoritesHandler={addToFavoritesHandler}
-            ></TranslatorItem>
-          ))}
+        <div className="grid grid-cols-3 gap-8">
+          <div className="flex flex-col items-center">
+            <img
+              src="/images/budget1.jpeg"
+              alt="Expenses"
+              className="w-20 h-20 mb-4"
+            />
+            <h2 className="text-lg font-bold text-gray-800 mb-2">
+              Track Your Expenses
+            </h2>
+            <p className="text-base text-gray-600 text-center">
+              Keep track of your expenses and categorize them for easy analysis.
+            </p>
+          </div>
+          <div className="flex flex-col items-center">
+            <img
+              src="/images/budget2.png"
+              alt="Budget"
+              className="w-20 h-20 mb-4"
+            />
+            <h2 className="text-lg font-bold text-gray-800 mb-2">
+              Create a Budget
+            </h2>
+            <p className="text-base text-gray-600 text-center ">
+              Set a budget for each expense and track your progress throughout.
+            </p>
+          </div>
+          <div className="flex flex-col items-center">
+            <img
+              src="/images/budget3.png"
+              alt="Report"
+              className="w-20 h-20 mb-4"
+            />
+            <h2 className="text-lg font-bold text-gray-800 mb-2">
+              Generate Reports
+            </h2>
+            <p className="text-base text-gray-600 text-center">
+              Get insights into your spending habits with detailed reports and
+              charts.
+            </p>
+          </div>
         </div>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">
+            What Our Users Are Saying
+          </h2>
+          <div className="grid grid-cols-3 gap-8">
+            <div className="bg-white rounded-lg shadow-lg p-6">
+              <p className="text-gray-700 mb-4">
+                "I love using this budgeting site! It's so easy to use and has
+                helped me save so much money."
+              </p>
+              <p className="text-gray-600 font-bold">- Sarah K.</p>
+            </div>
+            <div className="bg-white rounded-lg shadow-lg p-6">
+              <p className="text-gray-700 mb-4">
+                "The budgeting site has been a game-changer for me. I can
+                finally see where my money is going and make better decisions
+                about my spending."
+              </p>
+              <p className="text-gray-600 font-bold">- John P.</p>
+            </div>
+            <div className="bg-white rounded-lg shadow-lg p-6">
+              <p className="text-gray-700 mb-4">
+                "This app is amazing! I've been able to save up for a down
+                payment on a house thanks to the budgeting tools."
+              </p>
+              <p className="text-gray-600 font-bold">- Emily S.</p>
+            </div>
+          </div>
+        </div>
+        <section className="bg-gray-100 py-12">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">
+              Reach Us Today
+            </h2>
+            <div className="flex items-center justify-center space-x-4">
+              <a href="#" className="text-gray-600 hover:text-sky-800">
+                <span className="sr-only">Twitter</span>
+                <FontAwesomeIcon icon={faTwitter} className="w-6 h-6" />
+              </a>
+              <a href="#" className="text-gray-600 hover:text-pink-800">
+                <span className="sr-only">Instagram</span>
+                <FontAwesomeIcon icon={faInstagram} className="w-6 h-6" />
+              </a>
+              <a
+                href="https://wa.me/+254706012216"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-500 hover:text-green-800"
+              >
+                <span className="sr-only">WhatsApp</span>
+                <FontAwesomeIcon icon={faWhatsapp} className="w-6 h-6" />
+              </a>
+              <a href="sms:+254706012216">
+                <FontAwesomeIcon
+                  icon={faSms}
+                  className="text-purple-500 hover:text-purple-600 w-8 h-8 mx-auto"
+                />
+                <div className="text-sm mt-1">SMS</div>
+              </a>
+            </div>
+          </div>
+        </section>
       </Layout>
     </header>
   );
@@ -121,10 +223,10 @@ export default function Home({ translators }) {
 
 export async function getServerSideProps() {
   await db.connect();
-  const translators = await Translator.find().lean();
+  const customers = await Customer.find().lean();
   return {
     props: {
-      translators: translators.map(db.convertDocToObj),
+      customers: customers.map(db.convertDocToObj),
     },
   };
 }

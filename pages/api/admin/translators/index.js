@@ -1,5 +1,5 @@
 import { getSession } from 'next-auth/react';
-import Translator from '../../../../models/Translator';
+import Customer from '../../../../models/Customer';
 import db from '../../../../utils/db';
 
 const handler = async (req, res) => {
@@ -18,26 +18,23 @@ const handler = async (req, res) => {
 };
 const postHandler = async (req, res) => {
   await db.connect();
-  const newTranslator = new Translator({
+  const newTranslator = new Customer({
     name: 'sample name',
     slug: 'sample-name-' + Math.random(),
     image: '/images/shirt1.jpg',
-    price: 0,
-    category: 'sample category',
+
     description: 'sample description',
-    rating: 0,
-    numReviews: 0,
   });
 
-  const translator = await newTranslator.save();
+  const customer = await newTranslator.save();
   await db.disconnect();
-  res.send({ message: 'Sign Translatot created successfully', translator });
+  res.send({ message: ' created successfully', customer });
 };
 
 const getHandler = async (req, res) => {
   await db.connect();
-  const translators = await Translator.find({});
+  const customers = await Customer.find({});
   await db.disconnect();
-  res.send(translators);
+  res.send(customers);
 };
 export default handler;
