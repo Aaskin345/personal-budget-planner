@@ -32,10 +32,11 @@ export default function Layout({ title, children }) {
       <div className="flex min-h-screen flex-col justify-between ">
         <header className="sticky top-0 z-50 bg-white">
           <nav className="flex h-14 items-center px-4 justify-between shadow-2xl ">
-            <Link href="/">
-              <a className="text-green-600 hover:scale-110  text-3xl font-extrabold leading-tight">
-                Pure Budgets
-              </a>
+            <Link
+              href="/"
+              className="text-green-600 hover:scale-110  text-3xl font-extrabold leading-tight"
+            >
+              Pure Budgets
             </Link>
 
             <div>
@@ -68,20 +69,18 @@ export default function Layout({ title, children }) {
                     )}
 
                     <Menu.Item>
-                      <a
+                      <button
                         className="dropdown-link text-purple-600"
                         href="#"
                         onClick={logoutClickHandler}
                       >
                         Logout
-                      </a>
+                      </button>
                     </Menu.Item>
                   </Menu.Items>
                 </Menu>
               ) : (
-                <Link href="/login">
-                  <a className="p-2">User Login</a>
-                </Link>
+                <Link href="/login">User Login</Link>
               )}
             </div>
           </nav>

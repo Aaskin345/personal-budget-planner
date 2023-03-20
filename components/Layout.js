@@ -57,20 +57,23 @@ export default function Layout({ title, children }) {
       <div className="flex min-h-full flex-col justify-between  overflow-x: hidden;">
         <header className="navbar px-2 lg:px-4">
           <nav className="flex h-14 items-center px-4 justify-between shadow-2xl w-full lg:w-auto">
-            <Link href="/">
-              <a className=" mx-1 lg:mx-3hover:scale-110 text-3xl font-extrabold leading-tight text-green-500">
-                Pure Budgets
-              </a>
+            <Link
+              href="/"
+              className=" mx-1 lg:mx-3hover:scale-110 text-3xl font-extrabold leading-tight text-green-500"
+            >
+              Pure Budgets
             </Link>
-            <Link href="/how">
-              <a className=" mx-1 lg:mx-3hover:scale-110 text-2xl font-bold leading-tight text-green-400">
-                How it works
-              </a>
+            <Link
+              href="/how"
+              className=" mx-1 lg:mx-3hover:scale-110 text-2xl font-bold leading-tight text-green-400"
+            >
+              How it works
             </Link>
-            <Link href="/what">
-              <a className=" mx-1 lg:mx-3hover:scale-110 text-2xl font-bold leading-tight text-green-400">
-                What to expect
-              </a>
+            <Link
+              href="/what"
+              className=" mx-1 lg:mx-3hover:scale-110 text-2xl font-bold leading-tight text-green-400"
+            >
+              What to expect
             </Link>
 
             <div>
@@ -101,13 +104,13 @@ export default function Layout({ title, children }) {
                       )}
 
                       <Menu.Item>
-                        <a
+                        <button
                           className="dropdown-link"
                           href="#"
                           onClick={logoutClickHandler}
                         >
                           Logout
-                        </a>
+                        </button>
                       </Menu.Item>
                     </Menu.Items>
                   </Menu>
@@ -115,12 +118,12 @@ export default function Layout({ title, children }) {
                   <>
                     <Link href="/login">
                       <button className="bg-green-500 px-2 lg:px-4 py-2 lg:py-3 text-center text-white hover:bg-green-600 rounded-full p-3 m-3 active:scale-90 transition duration-150">
-                        <a className="p-2">Login</a>
+                        Login
                       </button>
                     </Link>
                     <Link href="/register">
                       <button className="px-2 lg:px-4 bg-green-500 text-center py-2 lg:py-3 text-white hover:bg-green-600 rounded-full p-3 m-3 active:scale-90 transition duration-150">
-                        <a className="p-2">Sign up</a>
+                        Sign up
                       </button>
                     </Link>
                     <style jsx>{`

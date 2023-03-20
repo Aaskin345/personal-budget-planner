@@ -73,8 +73,11 @@ function AdminUsersScreen() {
         <div>
           <ul>
             <li>
-              <Link href="/admin/dashboard">
-                <a className="hover:font-bold text-green-600">Dashboard</a>
+              <Link
+                href="/admin/dashboard"
+                className="hover:font-bold text-green-600"
+              >
+                Dashboard
               </Link>
             </li>
             <li className="hover:font-bold text-green-500">

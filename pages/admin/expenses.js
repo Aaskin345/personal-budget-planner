@@ -11,8 +11,8 @@ function Expenses({ expenses }) {
       <div className="grid  md:grid-cols-4 md:gap-5">
         <ul>
           <li>
-            <Link href="/admin/dashboard">
-              <a className="font-bold text-sky-600">Dashboard</a>
+            <Link href="/admin/dashboard" className="font-bold text-sky-600">
+              Dashboard
             </Link>
           </li>
 
