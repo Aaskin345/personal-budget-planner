@@ -1,2 +1,2 @@
-Sign Translator Web App
-favorites
+budgetting web app
+purebudgets
