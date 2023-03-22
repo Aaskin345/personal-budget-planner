@@ -42,7 +42,7 @@ const HowItWorks = () => {
                 <p className="mt-2 text-base text-gray-500">
                   Use our app to track your spending throughout the month.
                   Easily add your transactions and categorize them to see how
-                  much you're spending in each category and how it compares to
+                  much you are spending in each category and how it compares to
                   your budget.
                 </p>
               </div>
@@ -58,8 +58,8 @@ const HowItWorks = () => {
                 </h3>
                 <p className="mt-2 text-base text-gray-500">
                   Based on your spending, adjust your budget as needed. If you
-                  find that you're spending too much in one category, try to cut
-                  back or find ways to save. If you have extra money in one
+                  find that you are spending too much in one category, try to
+                  cut back or find ways to save. If you have extra money in one
                   category, you can reallocate it to another category or save it
                   for later.
                 </p>

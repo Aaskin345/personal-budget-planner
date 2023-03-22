@@ -99,8 +99,8 @@ export default function Home({ whats }) {
             </h3>
             <p className="text-gray-700 text-base">
               Our budgeting tool makes it easy to track your expenses and stay
-              on top of your finances. Set monthly budgets and see how much
-              you're spending in different categories.
+              on top of your finances. Set monthly budgets and see how much you
+              are spending in different categories.
             </p>
           </div>
           <div className="bg-white rounded-lg shadow-lg p-6">
@@ -120,9 +120,8 @@ export default function Home({ whats }) {
               Multiple Categories
             </h3>
             <p className="text-gray-700 text-base">
-              Our budgeting tool makes it easy to track your expenses and stay
-              on top of your finances. Set monthly budgets and see how much
-              you're spending in different categories.
+              Our butgetting tool has multiple ctaegories in which the user can
+              choose on what to allocate the funds
             </p>
           </div>
         </div>

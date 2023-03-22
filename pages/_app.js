@@ -1,15 +1,8 @@
 import '../styles/globals.css';
 import { SessionProvider, useSession } from 'next-auth/react';
 import { StoreProvider } from '../utils/Store';
-import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import io from 'socket.io-client';
-const socket = io('http://localhost:3000');
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
-  useEffect(() => {
-    // Send a message to the server to join the user's room
-    socket.emit('joinRoom', { userId: pageProps.session?.user._id });
-  }, [pageProps.session]);
   return (
     <SessionProvider session={session}>
       <StoreProvider>

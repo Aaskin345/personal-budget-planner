@@ -85,7 +85,7 @@ export default function Layout({ title, children }) {
                     <Menu.Button className="text-sky-600 hover:bg-green-800 hover:rounded-full text-center p-3 active scale-75 transition duration-100 text-2xl">
                       {session.user.name}
                     </Menu.Button>
-                    <Menu.Items className="rounded-2xl border border-slate-300 shadow-2xl shadow-slate-600 absolute right-0 w-56 origin-top-right bg-white shadow-lg ">
+                    <Menu.Items className="rounded-2xl border border-slate-300 shadow-2xl shadow-slate-600 absolute right-0 w-56 origin-top-right bg-white ">
                       <Menu.Item>
                         <DropdownLink className="dropdown-link" href="/profile">
                           Profile
@@ -126,14 +126,14 @@ export default function Layout({ title, children }) {
                         Sign up
                       </button>
                     </Link>
-                    <style jsx>{`
+                    <style>{`
                       @media only screen and (max-width: 640px) {
                         button {
-                          font-size: 0.8rem;
-                          padding: 0.5rem 1rem;
-                        }
-                      }
-                    `}</style>
+                       font-size: 0.8rem;
+                        padding: 0.5rem 1rem;
+                           }
+                           }
+                      `}</style>
                   </>
                 )}
               </span>

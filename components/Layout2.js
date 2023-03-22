@@ -1,7 +1,7 @@
 import { signOut, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import Link from 'next/link';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import Cookies from 'js-cookie';
 import { Menu } from '@headlessui/react';
 import { ToastContainer } from 'react-toastify';
@@ -12,7 +12,7 @@ import DropdownLink from './DropdownLink';
 export default function Layout({ title, children }) {
   const { status, data: session } = useSession();
 
-  const { state, dispatch } = useContext(Store);
+  const { dispatch } = useContext(Store);
 
   const logoutClickHandler = () => {
     Cookies.remove('favorites');

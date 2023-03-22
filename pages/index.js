@@ -6,39 +6,13 @@ import {
   faWhatsapp,
   faSms,
 } from '@fortawesome/free-brands-svg-icons';
-import { useContext } from 'react';
-import { toast } from 'react-toastify';
+
 import Layout from '../components/Layout';
-import SatisfiedCustomer from '../components/SatisfiedCustomer';
+
 // import data from '../utils/data';
-import Customer from '../models/Customer';
-import db from '../utils/db';
-import { Store } from '../utils/Store';
 import Image from 'next/image';
 
-export default function Home({ customers }) {
-  const { state, dispatch } = useContext(Store);
-  const { favorites } = state;
-
-  const addToFavoritesHandler = async (customer) => {
-    const existItem = favorites.favoritesItems.find(
-      (x) => x.slug === customer.slug
-    );
-    const quantity = existItem ? existItem.quantity + 1 : 1;
-
-    if (1 < quantity) {
-      return toast.error(
-        'Sorry. Translator is on another session. Try Again later'
-      );
-    }
-    dispatch({
-      type: 'FAVORITES_ADD_ITEM',
-      payload: { ...customer, quantity: 1 },
-    });
-
-    toast.success('Sign Translator added to the favorites');
-  };
-
+export default function Home() {
   return (
     <header className="gradient h-14 sticky top-0 z-1">
       <Layout title="Home Page">
@@ -114,9 +88,11 @@ export default function Home({ customers }) {
 
         <div className="grid grid-cols-3 gap-8">
           <div className="flex flex-col items-center">
-            <img
+            <Image
               src="/images/budget1.jpeg"
               alt="Expenses"
+              width="100"
+              height="100"
               className="w-20 h-20 mb-4"
             />
             <h2 className="text-lg font-bold text-gray-800 mb-2">
@@ -127,9 +103,11 @@ export default function Home({ customers }) {
             </p>
           </div>
           <div className="flex flex-col items-center">
-            <img
+            <Image
               src="/images/budget2.png"
               alt="Budget"
+              width="100"
+              height="100"
               className="w-20 h-20 mb-4"
             />
             <h2 className="text-lg font-bold text-gray-800 mb-2">
@@ -140,9 +118,11 @@ export default function Home({ customers }) {
             </p>
           </div>
           <div className="flex flex-col items-center">
-            <img
+            <Image
               src="/images/budget3.png"
               alt="Report"
+              width="100"
+              height="100"
               className="w-20 h-20 mb-4"
             />
             <h2 className="text-lg font-bold text-gray-800 mb-2">
@@ -161,23 +141,23 @@ export default function Home({ customers }) {
           <div className="grid grid-cols-3 gap-8">
             <div className="bg-white rounded-lg shadow-lg p-6">
               <p className="text-gray-700 mb-4">
-                "I love using this budgeting site! It's so easy to use and has
-                helped me save so much money."
+                I love using this budgeting site! It is so easy to use and has
+                helped me save so much money.
               </p>
               <p className="text-gray-600 font-bold">- Sarah K.</p>
             </div>
             <div className="bg-white rounded-lg shadow-lg p-6">
               <p className="text-gray-700 mb-4">
-                "The budgeting site has been a game-changer for me. I can
-                finally see where my money is going and make better decisions
-                about my spending."
+                The budgeting site has been a game-changer for me. I can finally
+                see where my money is going and make better decisions about my
+                spending.
               </p>
               <p className="text-gray-600 font-bold">- John P.</p>
             </div>
             <div className="bg-white rounded-lg shadow-lg p-6">
               <p className="text-gray-700 mb-4">
-                "This app is amazing! I've been able to save up for a down
-                payment on a house thanks to the budgeting tools."
+                This app is amazing! I have been able to save up for a down
+                payment on a house thanks to the budgeting tools.
               </p>
               <p className="text-gray-600 font-bold">- Emily S.</p>
             </div>
@@ -219,14 +199,4 @@ export default function Home({ customers }) {
       </Layout>
     </header>
   );
-}
-
-export async function getServerSideProps() {
-  await db.connect();
-  const customers = await Customer.find().lean();
-  return {
-    props: {
-      customers: customers.map(db.convertDocToObj),
-    },
-  };
 }

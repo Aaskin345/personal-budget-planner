@@ -3,38 +3,55 @@ import Layout3 from '../components/Layout3';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Notification from '../components/Notification';
+
 export default function Home() {
   const [budget, setBudget] = useState(0);
+  const [budgetAmount, setBudgetAmount] = useState(null);
+  const [updatedBudget, setUpdatedBudget] = useState(null);
   const [expenses, setExpenses] = useState([]);
   const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
-  const [error, setError] = useState('');
   const [category, setCategory] = useState('');
-  const [notification, setNotification] = useState('');
+
   const [loading, setLoading] = useState(false);
   const [date, setDate] = useState('');
   useEffect(() => {
-    const storedBudget = localStorage.getItem('budget');
-    const storedExpenses = JSON.parse(localStorage.getItem('expenses'));
-    if (storedBudget) {
-      setBudget(Number(storedBudget));
-    }
+    const fetchBudget = async () => {
+      try {
+        const response = await axios.get('/api/budget');
+        setBudgetAmount(response.data.budget);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchBudget();
 
+    const storedExpenses = JSON.parse(localStorage.getItem('expenses'));
     if (storedExpenses) {
       setExpenses(storedExpenses);
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('budget', budget);
     localStorage.setItem('expenses', JSON.stringify(expenses));
-  }, [budget, expenses]);
+  }, [expenses]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const expense = { category, name, amount, date };
+    const remainingBudget =
+      budgetAmount -
+      expenses.reduce((total, expense) => total + expense.amount, 0);
+
+    if (remainingBudget < amount) {
+      toast.error('Cannot add expense. Remaining budget is insufficient.');
+      setCategory('');
+      setName('');
+      setAmount('');
+      setDate('');
+      return;
+    }
 
     try {
       const res = await axios.post('/api/expense/expenses', expense);
@@ -50,6 +67,7 @@ export default function Home() {
       console.log(error);
     }
   };
+
   useEffect(() => {
     const fetchExpenses = async () => {
       try {
@@ -63,28 +81,51 @@ export default function Home() {
   }, []);
 
   const handleAddBudget = async (e) => {
-    e.preventDefault;
+    e.preventDefault();
+    if (budget === 0 || !budget) {
+      toast.error('Please enter a valid budget amount!');
+      return;
+    }
     try {
       await axios.post('/api/budget', {
         budget: budget,
       });
-
+      setBudgetAmount(budget);
       setBudget(0);
+      toast.success('Budget added successfully!');
     } catch (err) {
       console.error(err);
+      toast.error('Error adding budget');
     }
-    if (budget <= 0) {
-      setError('Please enter a valid budget amount');
-      return;
-    }
-
-    setBudget(parseInt(budget));
-    setError('');
-    setNotification(`Budget 0f ${budget} Added`);
   };
+
   const handleBudgetChange = (e) => {
     setBudget(parseInt(e.target.value));
   };
+  const handleUpdateBudget = async (e) => {
+    e.preventDefault();
+    if (!updatedBudget || updatedBudget <= 0) {
+      toast.error('Please enter a valid budget amount');
+      return;
+    }
+
+    try {
+      await axios.put('/api/budget', {
+        budget: updatedBudget,
+      });
+      setBudgetAmount(updatedBudget);
+      setUpdatedBudget(0);
+      toast.success('Budget updated successfully!');
+    } catch (err) {
+      console.error(err);
+      toast.error('Error updating budget');
+    }
+  };
+
+  const handleUpdateBudgetChange = (e) => {
+    setUpdatedBudget(parseInt(e.target.value));
+  };
+
   const handleDelete = async (id) => {
     try {
       await axios.delete(`/api/expense/${id}`);
@@ -96,11 +137,13 @@ export default function Home() {
       toast.error('Failed to delete expense.');
     }
   };
-  const handleNotificationClose = () => {
-    setNotification('');
-  };
+
   const remainingBudget =
-    budget - expenses.reduce((total, expense) => total + expense.amount, 0);
+    budgetAmount -
+    expenses.reduce((total, expense) => total + expense.amount, 0);
+  if (remainingBudget < 0) {
+    toast.error('You have exceeded your budget!');
+  }
 
   const handleDownload = async () => {
     setLoading(true);
@@ -126,15 +169,6 @@ export default function Home() {
     <>
       <ToastContainer />
       <Layout3 title="budget tracker">
-        <div className="container  text-teal-400 font-semibold ">
-          {notification && (
-            <Notification
-              message={notification}
-              onClose={handleNotificationClose}
-            />
-          )}
-        </div>
-
         <div className=" bg-white pl-28 pr-28 shadow-md ">
           <h1 className="text-center font-bold text-4xl text-cyan-400">
             Budget Tracker
@@ -151,18 +185,55 @@ export default function Home() {
                 value={budget}
                 onChange={handleBudgetChange}
               />
-              {error && <p className="text-red-500">{error}</p>}
+
               <button
                 className="bg-blue-500 text-white px-4 py-2 mt-3 rounded"
                 onClick={handleAddBudget}
               >
                 Add Budget
               </button>
+              <div className="flex justify-between mt-3">
+                <label
+                  htmlFor="updated-budget"
+                  className="block font-bold mb-1 w-3/5"
+                >
+                  Want to Update your Budget?
+                  <br />
+                  Enter updated budget:
+                </label>
+                <div className="flex w-2/5">
+                  <input
+                    type="number"
+                    id="updated-budget"
+                    className="border border-gray-400 p-2 flex-1"
+                    value={updatedBudget}
+                    onChange={handleUpdateBudgetChange}
+                  />
+                  <button
+                    className="bg-blue-500 text-white px-4 py-2 ml-2 rounded"
+                    onClick={handleUpdateBudget}
+                    disabled={!updatedBudget || updatedBudget === 0}
+                  >
+                    Update Budget
+                  </button>
+                </div>
+              </div>
+
+              {budgetAmount && (
+                <div
+                  className="card text-center font-semibold mt-3 pl-5 items-center"
+                  style={{ maxWidth: '400px' }}
+                >
+                  <p className="text-center text-green-500">
+                    Your budget is: {budgetAmount}
+                  </p>
+                </div>
+              )}
             </div>
           </form>
           <form onSubmit={handleSubmit}>
             <h2 className="text-xl font-bold mb-2">Add Expense</h2>
-            {error && <p className="text-red-500 mb-2">{error}</p>}
+
             <div className="flex flex-col mb-2">
               <label htmlFor="name" className="mb-1 font-semibold">
                 Expense Name:
@@ -228,31 +299,114 @@ export default function Home() {
               Add Expense
             </button>
           </form>
-          <div className="overflow-x-auto overflow-x-scroll">
-            <h2 className="text-xl font-bold mt-8 mb-4">Expenses</h2>
-            <table className="min-w-full">
-              <tbody>
-                {expenses.map((expense) => (
-                  <li
-                    key={expense._id}
-                    className="border-b border-gray-300 py-2 flex justify-between"
-                  >
-                    <td className="p-5">{expense.name}</td>
-                    <td className="p-5">{expense.amount}</td>
-                    <td className="p-5">{expense.category}</td>
-                    <td className="p-5">{expense.date}</td>
-                    <div>
-                      <button
-                        onClick={() => handleDelete(expense._id)}
-                        className="bg-red-500 text-white px-4 py-1 rounded"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </li>
-                ))}
-              </tbody>
-            </table>
+          <h1 className="mt-3 text-2xl font-bold">Expense List</h1>
+          <div className="overflow-x-scroll">
+            <div className="mt-8 mb-4">
+              <h2 className="text-xl font-bold">Expenses by Name</h2>
+              <table className="min-w-full">
+                <tbody>
+                  {Object.entries(
+                    expenses.reduce((acc, expense) => {
+                      if (!acc[expense.name]) {
+                        acc[expense.name] = [];
+                      }
+                      acc[expense.name].push(expense);
+                      return acc;
+                    }, {})
+                  ).map(([name, expenses]) => (
+                    <tr key={name}>
+                      <td className="font-bold py-2 pr-4">{name}:</td>
+                      <td>
+                        <ul className="list-disc pl-6">
+                          {expenses.map((expense) => (
+                            <>
+                              <li key={expense._id}>{expense.amount}</li>
+                              <button
+                                onClick={() => handleDelete(expense._id)}
+                                className="text-sm text-white text-centre p-2 m-2 bg-red-500 hover:bg-red-700 rounded-md"
+                              >
+                                Delete
+                              </button>
+                            </>
+                          ))}
+                        </ul>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="mt-8 mb-4">
+              <h2 className="text-xl font-bold">Expenses by Amount</h2>
+              <table className="min-w-full">
+                <tbody>
+                  {Object.entries(
+                    expenses.reduce((acc, expense) => {
+                      if (!acc[expense.amount]) {
+                        acc[expense.amount] = [];
+                      }
+                      acc[expense.amount].push(expense);
+                      return acc;
+                    }, {})
+                  ).map(([amount, expenses]) => (
+                    <tr key={amount}>
+                      <td className="font-bold py-2 pr-4">{amount}:</td>
+                      <td>
+                        <ul className="list-disc pl-6">
+                          {expenses.map((expense) => (
+                            <>
+                              <li key={expense._id}>{expense.name}</li>
+                              <button
+                                onClick={() => handleDelete(expense._id)}
+                                className="text-sm text-white text-centre p-2 m-2 bg-red-500 hover:bg-red-700 rounded-md"
+                              >
+                                Delete
+                              </button>
+                            </>
+                          ))}
+                        </ul>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="mt-8 mb-4">
+              <h2 className="text-xl font-bold">Expenses by Category</h2>
+              <table className="min-w-full">
+                <tbody>
+                  {Object.entries(
+                    expenses.reduce((acc, expense) => {
+                      if (!acc[expense.category]) {
+                        acc[expense.category] = [];
+                      }
+                      acc[expense.category].push(expense);
+                      return acc;
+                    }, {})
+                  ).map(([category, expenses]) => (
+                    <tr key={category}>
+                      <td className="font-bold py-2 pr-4">{category}:</td>
+                      <td>
+                        <ul className="list-disc pl-6">
+                          {expenses.map((expense) => (
+                            <li key={expense._id}>
+                              {expense.name} - {expense.amount}
+                              <button
+                                onClick={() => handleDelete(expense._id)}
+                                className="text-sm text-white text-centre p-2 m-2 bg-red-500 hover:bg-red-700 rounded-md"
+                              >
+                                Delete
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
           <h2 className="font-semibold text-lg inline-block">
             Remaining Budget:
