@@ -40,18 +40,6 @@ export default function Home() {
     event.preventDefault();
 
     const expense = { category, name, amount, date };
-    const remainingBudget =
-      budgetAmount -
-      expenses.reduce((total, expense) => total + expense.amount, 0);
-
-    if (remainingBudget < amount) {
-      toast.error('Cannot add expense. Remaining budget is insufficient.');
-      setCategory('');
-      setName('');
-      setAmount('');
-      setDate('');
-      return;
-    }
 
     try {
       const res = await axios.post('/api/expense/expenses', expense);
@@ -61,6 +49,18 @@ export default function Home() {
       setName('');
       setAmount('');
       setDate('');
+      const remainingBudget =
+        budgetAmount -
+        expenses.reduce((total, expense) => total + expense.amount, 0);
+
+      if (remainingBudget < amount) {
+        toast.error('Cannot add expense. Remaining budget is insufficient.');
+        setCategory('');
+        setName('');
+        setAmount('');
+        setDate('');
+        return;
+      }
       toast.success('Expense added successfully!');
     } catch (error) {
       toast.error('Failed to add expense.');
@@ -199,13 +199,13 @@ export default function Home() {
                 >
                   Want to Update your Budget?
                   <br />
-                  Enter updated budget:
+                  Enter new budget:
                 </label>
-                <div className="flex w-2/5">
+                <div className="flex w-4/5">
                   <input
                     type="number"
                     id="updated-budget"
-                    className="border border-gray-400 p-2 flex-1"
+                    className="border border-gray-400 p-2 "
                     value={updatedBudget}
                     onChange={handleUpdateBudgetChange}
                   />
@@ -221,7 +221,7 @@ export default function Home() {
 
               {budgetAmount && (
                 <div
-                  className="card text-center font-semibold mt-3 pl-5 items-center"
+                  className=" justify betweeen card text-center font-semibold mt-3 pl-5 items-center"
                   style={{ maxWidth: '400px' }}
                 >
                   <p className="text-center text-green-500">

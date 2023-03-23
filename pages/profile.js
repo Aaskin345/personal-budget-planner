@@ -44,6 +44,9 @@ export default function ProfileScreen() {
       toast.error(getError(err));
     }
   };
+  const handleBackButtonClick = () => {
+    toast.info('Welcome back ');
+  };
 
   return (
     <Layout2 title="Profile">
@@ -141,7 +144,10 @@ export default function ProfileScreen() {
           </div>
           <div className="mb-4">
             <Link href="/budgetty">
-              <button className="rounded bg-indigo-600 hover:bg-green-700 text-white font-bold py-2 px-2 ">
+              <button
+                onClick={handleBackButtonClick}
+                className="rounded bg-indigo-600 hover:bg-green-700 text-white font-bold py-2 px-2 "
+              >
                 Back
               </button>
             </Link>

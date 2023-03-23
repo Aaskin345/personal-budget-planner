@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { getSession, useSession } from 'next-auth/react';
-import io from 'socket.io-client';
-
-const socket = io('http://localhost:3000');
 
 export default function Expenses() {
   const [session, loading] = useSession();
@@ -17,6 +14,7 @@ export default function Expenses() {
         .then((data) => setExpenses(data));
 
       // Listen for real-time updates to the expenses data
+      // eslint-disable-next-line no-undef
       socket.on('expensesUpdated', (data) => {
         setExpenses(data);
       });
