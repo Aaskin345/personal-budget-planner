@@ -1,4 +1,3 @@
-// import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faTwitter,
@@ -9,7 +8,6 @@ import {
 
 import Layout from '../components/Layout';
 
-// import data from '../utils/data';
 import Image from 'next/image';
 
 export default function Home() {
