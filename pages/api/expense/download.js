@@ -1,5 +1,5 @@
 import Expense from '../../../models/Expense';
-import ExcelJS from 'exceljs';
+import { stringify } from 'csv-stringify';
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
@@ -24,35 +24,30 @@ export default async function handler(req, res) {
         },
       ]);
 
-      // Create a new workbook and worksheet
-      const workbook = new ExcelJS.Workbook();
-      const worksheet = workbook.addWorksheet('Expenses');
+      // Define the fields for the CSV file
+      const fields = ['Name', 'Category', 'Amount', 'Count'];
 
-      // Define the columns for the worksheet
-      worksheet.columns = [
-        { header: 'Name', key: 'name', width: 30 },
-        { header: 'Category', key: 'category', width: 20 },
-        { header: 'Amount', key: 'amount', width: 15 },
-        { header: 'Count', key: 'count', width: 15 },
-      ];
-
-      // Add the expenses to the worksheet
-      expenses.forEach((expense) => {
-        worksheet.addRow({
-          name: expense._id.name,
-          category: expense._id.category,
-          amount: expense._id.amount,
-          count: expense.count,
-        });
+      // Convert the expenses to a CSV string
+      const csv = await new Promise((resolve, reject) => {
+        stringify(
+          expenses,
+          { header: true, columns: fields },
+          (err, output) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(output);
+            }
+          }
+        );
       });
 
       // Set the content type and attachment header
-      res.setHeader('Content-Type', 'application/vnd.ms-excel');
-      res.setHeader('Content-Disposition', 'attachment; filename=expenses.xls');
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', 'attachment; filename=expenses.csv');
 
-      // Send the Excel file to the client
-      const buffer = await workbook.xlsx.writeBuffer();
-      res.send(buffer);
+      // Send the CSV file to the client
+      res.send(csv);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Server error' });

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Layout3 from '../components/Layout3';
 import axios from 'axios';
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -52,8 +53,10 @@ export default function Home() {
       const remainingBudget =
         budgetAmount -
         expenses.reduce((total, expense) => total + expense.amount, 0);
-
-      if (remainingBudget < amount) {
+      if (remainingBudget < 0) {
+        toast.error('You have exceeded your budget!');
+        return;
+      } else if (remainingBudget < amount) {
         toast.error('Cannot add expense. Remaining budget is insufficient.');
         setCategory('');
         setName('');
@@ -87,6 +90,14 @@ export default function Home() {
       return;
     }
     try {
+      // Check if a budget already exists for the user
+      const { data } = await axios.get('/api/budget');
+      if (data) {
+        toast.error('You have already added a budget consider upddating it!');
+        return;
+      }
+
+      // If a budget doesn't already exist, add the new budget
       await axios.post('/api/budget', {
         budget: budget,
       });
@@ -141,21 +152,23 @@ export default function Home() {
   const remainingBudget =
     budgetAmount -
     expenses.reduce((total, expense) => total + expense.amount, 0);
-  if (remainingBudget < 0) {
-    toast.error('You have exceeded your budget!');
-  }
+  useEffect(() => {
+    if (remainingBudget < 0) {
+      toast.error('You have exceeded your budget!');
+    }
+  }, [remainingBudget]);
 
   const handleDownload = async () => {
     setLoading(true);
     try {
       const response = await axios.get('/api/expense/download');
       const blob = new Blob([response.data], {
-        type: 'application/vnd.ms-excel',
+        type: 'text/csv',
       });
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'expenses.xlsx';
+      link.download = 'expenses.csv';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -165,6 +178,7 @@ export default function Home() {
     setLoading(false);
     toast.success('Downloaded successfully!');
   };
+
   return (
     <>
       <ToastContainer />
@@ -184,11 +198,13 @@ export default function Home() {
                 className="border border-gray-400 p-2 w-full"
                 value={budget}
                 onChange={handleBudgetChange}
+                disabled={budgetAmount !== null}
               />
 
               <button
                 className="bg-blue-500 text-white px-4 py-2 mt-3 rounded"
                 onClick={handleAddBudget}
+                disabled={budgetAmount !== null}
               >
                 Add Budget
               </button>
@@ -208,11 +224,16 @@ export default function Home() {
                     className="border border-gray-400 p-2 "
                     value={updatedBudget}
                     onChange={handleUpdateBudgetChange}
+                    disabled={budgetAmount === null}
                   />
                   <button
                     className="bg-blue-500 text-white px-4 py-2 ml-2 rounded"
                     onClick={handleUpdateBudget}
-                    disabled={!updatedBudget || updatedBudget === 0}
+                    disabled={
+                      !updatedBudget ||
+                      updatedBudget === 0 ||
+                      budgetAmount === null
+                    }
                   >
                     Update Budget
                   </button>
