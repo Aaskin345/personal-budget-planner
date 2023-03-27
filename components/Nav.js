@@ -1,27 +1,67 @@
-import Link from 'next/link';
+import { useState, useEffect, useRef } from 'react';
+import Chart from 'chart.js/auto';
+import { useSession } from 'next-auth/react';
 
-const Nav = () => {
+export default function ExpenseChart() {
+  const [expenses, setExpenses] = useState(null);
+  const { data: session, status } = useSession();
+  const chartRef = useRef(null);
+  useEffect(() => {
+    if (session) {
+      fetch('/api/expense/chart', {
+        headers: {
+          Authorization: `Bearer ${session.accessToken}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => setExpenses(data))
+        .catch((error) => console.error(error));
+    }
+  }, [session]);
+
+  useEffect(() => {
+    if (expenses) {
+      const labels = Object.keys(expenses);
+      const datasets = [
+        {
+          label: 'Expenses',
+          data: Object.values(expenses).map((expenses) =>
+            expenses.reduce((total, expense) => total + expense.amount, 0)
+          ),
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1,
+        },
+      ];
+
+      chartRef.current = new Chart(document.getElementById('expense-chart'), {
+        type: 'bar',
+        data: {
+          labels,
+          datasets,
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+    }
+  }, [expenses]);
+
+  if (status === 'loading') {
+    return <p>Loading...</p>;
+  }
+
+  if (!session) {
+    return <p>You need to sign in to see the expenses chart.</p>;
+  }
+
   return (
-    <nav className="flex items-center justify-between flex-wrap bg-blue-500 p-6">
-      <div className="flex items-center flex-shrink-0 text-white mr-6">
-        <a className="text-white font-bold text-xl">Budget Tracker</a>
-      </div>
-      <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-        <div className="text-sm lg:flex-grow">
-          <Link href="/">
-            <a className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-200 mr-4">
-              Home
-            </a>
-          </Link>
-          <Link href="/AddExpense">
-            <a className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-200 mr-4">
-              Budgets
-            </a>
-          </Link>
-        </div>
-      </div>
-    </nav>
+    <div>
+      <canvas id="expense-chart" width="400" height="200"></canvas>
+    </div>
   );
-};
-
-export default Nav;
+}

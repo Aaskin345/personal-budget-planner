@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Layout3 from '../components/Layout3';
 import axios from 'axios';
-
+import Nav from '../components/Nav';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -19,23 +19,17 @@ export default function Home() {
   useEffect(() => {
     const fetchBudget = async () => {
       try {
-        const response = await axios.get('/api/budget');
+        const response = await axios.get('/api/budgets/budget');
         setBudgetAmount(response.data.budget);
+        localStorage.setItem('budgetAmount', response.data.budget);
       } catch (err) {
         console.error(err);
       }
     };
     fetchBudget();
-
-    const storedExpenses = JSON.parse(localStorage.getItem('expenses'));
-    if (storedExpenses) {
-      setExpenses(storedExpenses);
-    }
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem('expenses', JSON.stringify(expenses));
-  }, [expenses]);
+  useEffect(() => {}, [expenses]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -45,23 +39,22 @@ export default function Home() {
     try {
       const res = await axios.post('/api/expense/expenses', expense);
       const newExpense = res.data;
-      setExpenses([...expenses, newExpense]);
+      const updatedExpenses = [...expenses, newExpense];
+      setExpenses(updatedExpenses);
       setCategory('');
       setName('');
       setAmount('');
       setDate('');
       const remainingBudget =
         budgetAmount -
-        expenses.reduce((total, expense) => total + expense.amount, 0);
+        updatedExpenses.reduce((total, expense) => total + expense.amount, 0);
       if (remainingBudget < 0) {
         toast.error('You have exceeded your budget!');
+        setExpenses(expenses);
         return;
       } else if (remainingBudget < amount) {
         toast.error('Cannot add expense. Remaining budget is insufficient.');
-        setCategory('');
-        setName('');
-        setAmount('');
-        setDate('');
+        setExpenses(expenses);
         return;
       }
       toast.success('Expense added successfully!');
@@ -83,26 +76,27 @@ export default function Home() {
     fetchExpenses();
   }, []);
 
-  const handleAddBudget = async (e) => {
-    e.preventDefault();
+  const handleAddBudget = async (event) => {
+    event.preventDefault();
     if (budget === 0 || !budget) {
       toast.error('Please enter a valid budget amount!');
       return;
     }
     try {
       // Check if a budget already exists for the user
-      const { data } = await axios.get('/api/budget');
+      const { data } = await axios.get('/api/budgets/budget');
       if (data) {
-        toast.error('You have already added a budget consider upddating it!');
+        toast.error('You have already added a budget consider updating it!');
         return;
       }
 
       // If a budget doesn't already exist, add the new budget
-      await axios.post('/api/budget', {
+      await axios.post('/api/budgets/budget', {
         budget: budget,
       });
       setBudgetAmount(budget);
       setBudget(0);
+
       toast.success('Budget added successfully!');
     } catch (err) {
       console.error(err);
@@ -121,11 +115,12 @@ export default function Home() {
     }
 
     try {
-      await axios.put('/api/budget', {
+      await axios.put('/api/budgets/budget', {
         budget: updatedBudget,
       });
       setBudgetAmount(updatedBudget);
       setUpdatedBudget(0);
+
       toast.success('Budget updated successfully!');
     } catch (err) {
       console.error(err);
@@ -181,7 +176,7 @@ export default function Home() {
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer className="fixed top-0 right-0 z-50" />
       <Layout3 title="budget tracker">
         <div className=" bg-white pl-28 pr-28 shadow-md ">
           <h1 className="text-center font-bold text-4xl text-cyan-400">
@@ -454,7 +449,9 @@ export default function Home() {
             {loading ? 'Downloading...' : 'Download Your Expenses'}
           </button>
         </div>
-        <div></div>
+        <div>
+          <Nav />
+        </div>
       </Layout3>
     </>
   );

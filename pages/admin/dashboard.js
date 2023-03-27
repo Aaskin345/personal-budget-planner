@@ -72,34 +72,38 @@ function AdminDashboardScreen() {
       {
         label: 'Expenses',
         backgroundColor: '#9fd7e9',
-        data: summary.salesData.map((x) => x.expensePrice),
+        data: summary.salesData.map((x) => x.expensesPrice),
       },
     ],
   };
   return (
     <Layout3 title="Admin Dashboard">
       <div className="grid  md:grid-cols-4 md:gap-5">
-        <div>
-          <ul>
-            <li>
-              <Link href="/admin/dashboard" className="font-bold text-sky-600">
+        <div className="bg-white rounded-lg shadow-md">
+          <ul className="flex flex-col py-4">
+            <li className="px-6 py-2">
+              <Link
+                href="/admin/dashboard"
+                className="text-green-400 hover:text-green-900 font-medium"
+              >
                 Dashboard
               </Link>
             </li>
-
-            <li className="hover:font-bold">
+            <li className="px-6 py-2 text-green-400 hover:text-green-900 font-medium">
               <Link href="/admin/expenses">Expenses</Link>
             </li>
-            <li className="hover:font-bold">
-              <Link href="/admin/translators">Satisfied Users </Link>
+            <li className="px-6 py-2 text-green-400 hover:text-green-900 font-medium">
+              <Link href="/admin/translators">Satisfied Users</Link>
             </li>
-            <li className="hover:font-bold">
+            <li className="px-6 py-2 text-green-400 hover:text-green-900 font-medium">
               <Link href="/admin/users">Users</Link>
             </li>
           </ul>
         </div>
         <div className="md:col-span-3">
-          <h1 className="mb-4 text-3xl text-sky-600">Admin Dashboard</h1>
+          <h1 className="mb-4 text-3xl font-extrabold text-sky-600">
+            Admin Dashboard
+          </h1>
           {loading ? (
             <div>Loading...</div>
           ) : error ? (
@@ -107,13 +111,13 @@ function AdminDashboardScreen() {
           ) : (
             <div>
               <div className="grid grid-cols-1 md:grid-cols-4">
-                <Link href="/admin/orders">
+                <Link href="/admin/expenses">
                   <div className="card: rounded-lg border border-slate-300 shadow-xl m-5 p-5 hover:scale-110 shadow-2xl shadow-sky-900 hover:bg-gray-100">
                     <p className="text-2xl text-sky-600">
                       Ksh&nbsp;{summary.OrdersPrice}{' '}
                     </p>
                     <p>Sales</p>
-                    <div className="text-sky-600">View sales</div>
+                    <div className="text-sky-600">View expenses</div>
                   </div>
                 </Link>
                 <Link href="/admin/expenses">
@@ -143,7 +147,7 @@ function AdminDashboardScreen() {
                   </div>
                 </Link>
               </div>
-              <h2 className="text-xl text-sky-600 font-bold">Sales Report</h2>
+              <h2 className="text-xl text-sky-400 font-bold">Expense Report</h2>
               <Bar
                 options={{
                   legend: { display: true, position: 'right' },

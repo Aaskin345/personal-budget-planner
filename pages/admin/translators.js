@@ -108,30 +108,32 @@ export default function AdminTranslatorsScreen() {
   return (
     <Layout2 title="Admin Translators">
       <div className="grid md:grid-cols-4 md:gap-5">
-        <div>
-          <ul>
-            <li>
+        <div className="bg-white rounded-lg shadow-md">
+          <ul className="flex flex-col py-4">
+            <li className="px-6 py-2">
               <Link
                 href="/admin/dashboard"
-                className="hover:font-bold text-green-500"
+                className="text-green-400 hover:text-green-900 font-medium"
               >
                 Dashboard
               </Link>
             </li>
-            <li className="hover:font-bold text-green-500">
+            <li className="px-6 py-2 text-green-400 hover:text-green-900 font-medium">
               <Link href="/admin/expenses">Expenses</Link>
             </li>
-            <li className="font-bold text-green-800">
+            <li className="px-6 py-2 text-green-400 hover:text-gray-900 font-medium">
               <Link href="/admin/translators">Satisfied Users</Link>
             </li>
-            <li className="hover:font-bold text-green-500">
+            <li className="px-6 py-2 text-green-400 hover:text-green-900 font-medium">
               <Link href="/admin/users">Users</Link>
             </li>
           </ul>
         </div>
         <div className="overflow-x-auto md:col-span-3">
           <div className="flex justify-between">
-            <h1 className="mb-4 text-3xl text-green-600">Satisfied Users</h1>
+            <h1 className="mb-4 text-3xl font-bold text-sky-500">
+              Satisfied Users
+            </h1>
             {loadingDelete && <div>Deleting item...</div>}
             <button
               disabled={loadingCreate}

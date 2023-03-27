@@ -9,7 +9,7 @@ const handler = async (req, res) => {
   }
   if (req.method === 'GET') {
     await db.connect();
-    const expenses = await Expense.find({}).populate('user', 'name');
+    const expenses = await Expense.find({}).populate('user', 'name email');
     await db.disconnect();
     res.send(expenses);
   } else {
