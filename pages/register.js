@@ -16,7 +16,7 @@ export default function LoginScreen() {
 
   useEffect(() => {
     if (session?.user) {
-      router.push(redirect || '/budgetty');
+      router.push('/login');
     }
   }, [router, session, redirect]);
 
