@@ -51,65 +51,6 @@ const data = {
       description: 'Lets help you on how to get started with us ',
     },
   ],
-  customers: [
-    {
-      name: 'Lucia Wanjiru',
-      slug: 'lucia-wanjiru',
-      image: '/images/Ateam.jpg',
-    },
-    {
-      name: 'Daren Wallace',
-      slug: 'daren-wallace',
-      image: '/images/Bteam.jpg',
-    },
-    {
-      name: 'Dennis Hobbs',
-      slug: 'dennis-hobbs',
-      image: '/images/Cteam.jpg',
-    },
-    {
-      name: 'Geogina Alex',
-      slug: 'geogina-alex',
-      image: '/images/Dteam.jpg',
-    },
-    {
-      name: 'Christine Dale',
-      slug: 'christine-dale',
-      image: '/images/Eteam.jpg',
-    },
-
-    {
-      name: 'Johnathan Kalonzo',
-      slug: 'johnathan-kalonzo',
-
-      image: '/images/Fteam.jpg',
-    },
-    {
-      name: 'Sebastien Cliff',
-      slug: 'sebastien-cliff',
-      image: '/images/Gteam.jpg',
-    },
-    {
-      name: 'Clair Hellen',
-      slug: 'clair-hellen',
-      image: '/images/Fteam.jpg',
-    },
-    {
-      name: 'Irene Anyango',
-      slug: 'irene-anyango',
-      image: '/images/Hteam.jpg',
-    },
-    {
-      name: 'Cynthia Chepkerui',
-      slug: 'cynthia chepkekui',
-      image: '/images/Iteam.jpg',
-    },
-    {
-      name: 'Brenda Lee',
-      slug: 'brenda-lee',
-      image: '/images/smart.png',
-    },
-  ],
 };
 
 export default data;

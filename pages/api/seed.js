@@ -1,5 +1,5 @@
 import How from '../../models/How';
-import Customer from '../../models/Customer';
+
 import User from '../../models/User';
 import What from '../../models/What';
 
@@ -10,8 +10,7 @@ const handler = async (req, res) => {
   await db.connect();
   await User.deleteMany();
   await User.insertMany(data.users);
-  await Customer.deleteMany();
-  await Customer.insertMany(data.customers);
+
   await What.deleteMany();
   await What.insertMany(data.whats);
   await How.deleteMany();
