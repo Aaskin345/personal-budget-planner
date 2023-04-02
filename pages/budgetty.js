@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import Layout3 from '../components/Layout3';
 import axios from 'axios';
-import Nav from '../components/Nav';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -449,9 +448,7 @@ export default function Home() {
             {loading ? 'Downloading...' : 'Download Your Expenses'}
           </button>
         </div>
-        <div>
-          <Nav />
-        </div>
+        <div></div>
       </Layout3>
     </>
   );

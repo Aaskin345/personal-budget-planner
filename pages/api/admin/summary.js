@@ -31,9 +31,12 @@ const handler = async (req, res) => {
   const salesData = await Expense.aggregate([
     {
       $group: {
-        _id: { $dateToString: { format: '%Y-%m', date: '$createdAt' } },
-        totalSales: { $sum: '$amount' },
+        _id: { $week: '$createdAt' },
+        totalExpenses: { $sum: '$amount' },
       },
+    },
+    {
+      $sort: { _id: 1 },
     },
   ]);
 

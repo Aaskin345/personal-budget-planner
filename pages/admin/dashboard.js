@@ -65,17 +65,17 @@ function AdminDashboardScreen() {
 
     fetchData();
   }, []);
-
   const data = {
-    labels: summary.salesData.map((x) => x._id), // 2022/01 2022/03
+    labels: summary.salesData.map((x) => x._id),
     datasets: [
       {
         label: 'Expenses',
         backgroundColor: '#9fd7e9',
-        data: summary.salesData.map((x) => x.expensesPrice),
+        data: summary.salesData.map((x) => x.totalExpenses),
       },
     ],
   };
+
   return (
     <Layout3 title="Admin Dashboard">
       <div className="grid  md:grid-cols-4 md:gap-5">
@@ -92,9 +92,7 @@ function AdminDashboardScreen() {
             <li className="px-6 py-2 text-green-400 hover:text-green-900 font-medium">
               <Link href="/admin/expenses">Expenses</Link>
             </li>
-            <li className="px-6 py-2 text-green-400 hover:text-green-900 font-medium">
-              <Link href="/admin/translators">Satisfied Users</Link>
-            </li>
+
             <li className="px-6 py-2 text-green-400 hover:text-green-900 font-medium">
               <Link href="/admin/users">Users</Link>
             </li>
@@ -114,10 +112,10 @@ function AdminDashboardScreen() {
                 <Link href="/admin/expenses">
                   <div className="card: rounded-lg border border-slate-300 shadow-xl m-5 p-5 hover:scale-110 shadow-2xl shadow-sky-900 hover:bg-gray-100">
                     <p className="text-2xl text-sky-600">
-                      Ksh&nbsp;{summary.OrdersPrice}{' '}
+                      Total Expenses:$&nbsp;{summary.expensesPrice}{' '}
                     </p>
-                    <p>Sales</p>
-                    <div className="text-sky-600">View expenses</div>
+                    <p>Expenses</p>
+                    <div className="text-sky-600">View the expenses</div>
                   </div>
                 </Link>
                 <Link href="/admin/expenses">
@@ -125,15 +123,6 @@ function AdminDashboardScreen() {
                     <p> {summary.expensePrice} </p>
                     <p>Expenses</p>
                     <div className="text-sky-600">View Total expenses</div>
-                  </div>
-                </Link>
-                <Link href="/admin/translators">
-                  <div className="card: rounded-lg border border-slate-300 shadow-xl m-5 p-5 hover:scale-110 shadow-2xl shadow-sky-900 hover:bg-gray-100">
-                    <p className="text-2xl text-sky-600">
-                      {summary.translatorsCount}{' '}
-                    </p>
-                    <p>Satisfied Users</p>
-                    <div className="text-sky-600">View Satisfied Users</div>
                   </div>
                 </Link>
 

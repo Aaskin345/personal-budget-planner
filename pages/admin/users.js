@@ -83,9 +83,7 @@ function AdminUsersScreen() {
             <li className="px-6 py-2 text-green-400 hover:text-green-900 font-medium">
               <Link href="/admin/expenses">Expenses</Link>
             </li>
-            <li className="px-6 py-2 text-green-400 hover:text-green-900 font-medium">
-              <Link href="/admin/translators">Satisfied Users</Link>
-            </li>
+
             <li className="px-6 py-2 text-green-400 hover:text-green-900 font-medium">
               <Link href="/admin/users">Users</Link>
             </li>
