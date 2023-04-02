@@ -109,20 +109,18 @@ function AdminDashboardScreen() {
           ) : (
             <div>
               <div className="grid grid-cols-1 md:grid-cols-4">
-                <Link href="/admin/expenses">
+                <Link href="/admin/dashboard">
                   <div className="card: rounded-lg border border-slate-300 shadow-xl m-5 p-5 hover:scale-110 shadow-2xl shadow-sky-900 hover:bg-gray-100">
                     <p className="text-2xl text-sky-600">
                       Total Expenses:$&nbsp;{summary.expensesPrice}{' '}
                     </p>
-                    <p>Expenses</p>
-                    <div className="text-sky-600">View the expenses</div>
                   </div>
                 </Link>
                 <Link href="/admin/expenses">
                   <div className="card: rounded-lg border border-slate-300 shadow-xl m-5 p-5 hover:scale-110 shadow-2xl shadow-sky-900 hover:bg-gray-100">
                     <p> {summary.expensePrice} </p>
                     <p>Expenses</p>
-                    <div className="text-sky-600">View Total expenses</div>
+                    <div className="text-sky-600">View expenses</div>
                   </div>
                 </Link>
 

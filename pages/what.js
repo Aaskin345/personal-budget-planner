@@ -36,10 +36,10 @@ export default function Home({ whats }) {
           </Link>
         </div>
       </div>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-8lg:px-8 mt-12">
         <h2 className="text-2xl font-bold text-gray-800 mb-4">Features</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          <div className="bg-white rounded-lg shadow-lg p-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+          <div className="bg-white rounded-lg shadow-lg p-8">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-8 w-8 text-blue-500 mb-4 mx-auto"
@@ -60,27 +60,7 @@ export default function Home({ whats }) {
               limits and tracking your expenses all in one place.
             </p>
           </div>
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-8 w-8 text-blue-500 mb-4 mx-auto"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10 2a2 2 0 00-2 2v1H7a1 1 0 00-1 1v12a1 1 0 001 1h6a1 1 0 001-1V6a1 1 0 00-1-1h-1V4a2 2 0 00-2-2zm-2 5a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1zm1 3a1 1 0 100 2 1 1 0 000-2zm2 0a1 1 0 100 2 1 1 0 000-2zm-3 3a1 1 0 110-2 1 1 0 010 2z"
-                clipRule="evenodd"
-              />
-            </svg>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
-              Goal Setting
-            </h3>
-            <p className="text-gray-600">
-              Set financial goals and track your progress over time. Stay
-              motivated and on track to achieve your financial dreams.
-            </p>
-          </div>
+
           <div className="bg-white rounded-lg shadow-lg p-6">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -103,7 +83,7 @@ export default function Home({ whats }) {
               are spending in different categories.
             </p>
           </div>
-          <div className="bg-white rounded-lg shadow-lg p-6">
+          <div className="bg-white rounded-lg shadow-lg p-8">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-8 w-8 text-blue-500 mb-4 mx-auto"

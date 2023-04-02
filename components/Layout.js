@@ -59,7 +59,7 @@ export default function Layout({ title, children }) {
           <nav className="flex h-14 items-center px-4 justify-between shadow-2xl w-full lg:w-auto">
             <Link
               href="/"
-              className=" mx-1 lg:mx-3hover:scale-110 text-3xl {{ Request::is('/') ? '' : 'text-xl' }}font-extrabold leading-tight text-green-500"
+              className=" mx-1 lg:mx-3hover:scale-110 text-3xl {{ Request::is('/') ? '' : 'text-xl' }}font-extrabold leading-tight text-green-600"
             >
               Pure Budgets
             </Link>
