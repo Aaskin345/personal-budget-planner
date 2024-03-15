@@ -1,2 +1,1 @@
-budgetting web app
-purebudgets
+personal budget planner
